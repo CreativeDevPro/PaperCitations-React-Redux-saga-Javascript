@@ -7,10 +7,13 @@ import Pages from './pages';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history'
+
+// const history = createMemoryHistory(location)
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router >
       <Pages />
     </Router>
   </Provider>,

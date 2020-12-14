@@ -36,6 +36,10 @@ export const totalState = {
         }
     },
     curOffset: 0,
+    isLoading: false,
+    searchArticleInputValue: "",
+    onFetchingArticles: true,
+    totalResults: 0,
 }
 
 // export default rootState;
