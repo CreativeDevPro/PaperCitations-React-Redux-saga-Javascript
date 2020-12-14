@@ -28,7 +28,7 @@ export const AxiosService = (function () {
     }
 
     function get(endPoint, userConfig = {}) {
-        return axios.get( endPoint, addHeaders(userConfig));
+        return axios.get(endPoint, addHeaders(userConfig));
     }
 
     return {

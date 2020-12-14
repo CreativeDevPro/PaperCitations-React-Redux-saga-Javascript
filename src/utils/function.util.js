@@ -1,6 +1,6 @@
 import * as _ from "lodash"
 
-export function buildArticleQuery(input: any, extraParams: any) {
+export function buildArticleQuery(input, extraParams) {
     // let baseUrl = process.env.API_BASE_URL;
     let baseUrl = 'https://api.crossref.org/works?'
 
@@ -13,7 +13,7 @@ export function buildArticleQuery(input: any, extraParams: any) {
     let facetsQuery = "";
     if (extraParams.facets) {
       facetsQuery = "&facet=";
-      _.each(extraParams.facets, (facetVal: any, facetName: any) => {
+      _.each(extraParams.facets, (facetVal, facetName) => {
         facetsQuery = facetsQuery + facetName + ":" + facetVal + ",";
       });
 
@@ -27,17 +27,17 @@ export function buildArticleQuery(input: any, extraParams: any) {
     return baseUrl + paginationQuery + facetsQuery + escapedSearchQuery;
 }
 
-export function buildGetCitationsQuery(doi: any) {
+export function buildGetCitationsQuery(doi) {
     let baseUrl = process.env.OPENCIATIONS_BASE_URL;
     return baseUrl + 'citations/' + doi;
 }
 
-export function buildGetMetadataQuery(doi: any) {
+export function buildGetMetadataQuery(doi) {
     let baseUrl = process.env.OPENCIATIONS_BASE_URL;
     return baseUrl + 'metadata/' + doi;
 }
 
-export function parseArticle(result: any) {
+export function parseArticle(result) {
     // get fields from crossref json to helper variables
     var year = "",
       journal = "",
@@ -54,7 +54,7 @@ export function parseArticle(result: any) {
     }
     try {
       citations = result["citation"]
-      .map(function (citations: any) {
+      .map(function (citations) {
         return citations["referenced-by"] + " " + citations["is-referenced-by"];
       })
       .join(", ");
@@ -62,7 +62,7 @@ export function parseArticle(result: any) {
   
     try {
       authors = result["author"]
-      .map(function (author: any) {
+      .map(function (author) {
         return author["given"] + " " + author["family"];
       })
       .join(", ");

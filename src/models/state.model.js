@@ -1,7 +1,8 @@
 import { Article } from './article.model'
 import { RelatedDoi } from './related-doi.model'
 import implement, { Interface, type } from 'implement-js'
-export  interface ArticlesState {
+
+export  interface IArticlesState {
     articles: Article[];
     curOffset: Number;
 }
