@@ -6,7 +6,7 @@ import { parseArticle } from '../../utils/function.util'
 
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import Article from "./../../components/Article";
+import Article from "../../components/Article";
 import Typography from "@material-ui/core/Typography/Typography";
 import Paper from "@material-ui/core/Paper/Paper";
 import Grid from "@material-ui/core/Grid/Grid";

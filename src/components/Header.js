@@ -1,9 +1,9 @@
 import {React , useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { ArticleService } from '../../services/article.service'
+import { ArticleService } from '../services/article.service'
 // import { getArticles } from './../../store/actions/articles.action'
 import { connect } from 'react-redux';
-import {totalState }from '../../store/states';
+import {totalState }from '../store/states';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
