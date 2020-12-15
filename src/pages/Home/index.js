@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const {isLoading, getArticles, setSearchArticleInputValue} = props;
+  const {isLoading, getArticles, setSearchArticleInputValue, setCurrentPage } = props;
   const [inputValue, setInputValue] = useState('')
   const history = useHistory();
   const handleKeyUp = (e) => {
@@ -62,7 +62,8 @@ const Home = (props) => {
       if(inputValue != '') {
         console.log(inputValue);
         setSearchArticleInputValue(inputValue);
-        history.push("/articles/loading");
+        // history.push("/articles/loading");
+        setCurrentPage('ArticlesLoading');
       }
     }
   };
@@ -109,7 +110,7 @@ const Home = (props) => {
   );
 };
 
-const mapStateToProps=(state = totalState)=>{
+const mapStateToProps=(state)=>{
 
   return {
     isLoading: state.isLoading,
@@ -123,7 +124,10 @@ const mapStateToDispatch=(dispatch)=>{
     },
     setSearchArticleInputValue: (payload) => {
       dispatch({type:'SET_SEARCH_ARTICLE_INPUT_VALUE', payload});
-    } 
+    },
+    setCurrentPage: (payload) => {
+      dispatch({type:'SET_CURRENT_PAGE', payload});
+    }
   }
 }
 

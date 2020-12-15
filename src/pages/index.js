@@ -6,26 +6,58 @@ import {
   Link
 } from "react-router-dom";
 import Home from './Home';
+import { connect } from 'react-redux';
 import Header from '../components/Header'
+import {totalState }from '../store/states';
 import SearchResultsPage from './SearchResultsPage'
 import ArticleDetailsPage from './ArticleDetailsPage'
 import ArticlesLoadingPage from './ArticlesLoadingPage'
 
-export default function Pages() {
+const  Pages = (props) => {
+  const { currentPage } = props;
+  console.log(currentPage);
   return (
     <div>
         <nav>
             <Header />
         </nav>
+        {
+          (currentPage == 'Home') ?
+          <Home /> : ''
+        }
+        {
+          (currentPage == 'ArticlesLoading') ?
+          <ArticlesLoadingPage /> : ''
+        }
+        {
+          (currentPage == 'SearchResultsPage') ?
+          <SearchResultsPage /> : ''
+        }
+        {
+          (currentPage == 'ArticleDetailsPage') ?
+          <ArticleDetailsPage /> : ''
+        }
         
-        <Switch>
+        
+        {/* <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/articles/loading" component={ArticlesLoadingPage} />
             <Route exact path="/searchResults" component={SearchResultsPage} />
             <Route exact path="/details" component={ArticleDetailsPage} />
-        </Switch>
+        </Switch> */}
     </div>
   );
 }
 
-// export default Pages;
+const mapStateToProps=(state)=>{
+  return {
+    currentPage: state.currentPage,
+  }
+}
+
+const mapStateToDispatch=(dispatch)=>{
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapStateToDispatch)(Pages);

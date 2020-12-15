@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 // import { fade, makeStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core';
 import {totalState }from '../../store/states';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,46 +50,83 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "600px",
   },
   pagination: {
-    margin: theme.spacing.unit,
+    // margin: theme.spacing.unit,
   },
 }));
 
 const SearchResultsPage = (props) => {
-  const { articlesState, curOffset, totalResults } = props;
+  const { searchArticleInputValue, articlesState, curOffset, totalResults, onFetchingArticles, getArticles, setCurOffset, setFetchingArticlesStatus } = props;
   const classes = useStyles();
-  let listItems = articlesState.map((article, index) => {
-    let parsedArticle = parseArticle(article);
-    return (
-        <Grid item xs={4} xl={1} style={{height:"100%"}}>
-          <Article
-            key={`articles-${index}`}
-            article={parsedArticle}
-            // articles={this.props.articles}
-            // totalResults={this.props.totalResults}
-            // queryInput={this.props.lastQuerySettings.input} />
-            />
-        </Grid>
-    )
-  });
+  // let listItems = articlesState.map((article, index) => {
+  //   let parsedArticle = parseArticle(article);
+  //   return (
+  //       <Grid key={`item-${index}`} item xs={4} xl={1} style={{height:"100%"}}>
+  //         <Article
+  //           key={`articles-${index}`}
+  //           article={parsedArticle}
+  //           // articles={this.props.articles}
+  //           // totalResults={this.props.totalResults}
+  //           // queryInput={this.props.lastQuerySettings.input} />
+  //           />
+  //       </Grid>
+  //   )
+  // });
+  const setOffset = (e, offset) => {
+    setCurOffset(offset);
+    setFetchingArticlesStatus();
+    getArticles(searchArticleInputValue, {
+      itemsPerPage: 21,
+      currentOffset: curOffset,
+    })
+    // console.log('yahoo');
+  }
+  console.log('why')
+  console.log(onFetchingArticles);
   return (
     <div>
+      {/* { onFetchingArticles ? 
+        <CircularProgress style={{ position: "absolute", left: "calc(50% - 35px)", top: "calc(50% - 35px)", width: "70px", height: "70px"}} /> :
+        "" 
+      } */}
+      
       <List>
         <Grid container spacing={12} style={{display:"flex"}}>
-          {listItems}
+          {/* {listItems} */}
+          {
+            articlesState.map((article, index) => {
+            let parsedArticle = parseArticle(article);
+            return (
+                <Grid item xs={4} xl={1} style={{height:"100%"}}>
+                  <Article
+                    key={`articles-${index}`}
+                    article={parsedArticle}
+                    // articles={this.props.articles}
+                    // totalResults={this.props.totalResults}
+                    // queryInput={this.props.lastQuerySettings.input} />
+                    />
+                </Grid>
+            )
+          })
+       }
         </Grid>        
       </List>
       <Pagination
         className={classes.pagination}
-        limit= { 20 }
+        limit= { 21 }
         offset={curOffset}
         total={totalResults}
         shape="rounded"
         variant="outlined"
         size="large"
-        showFirstButton
-        showLastButton
+        onClick={ setOffset }
+        // showFirstButton
+        // showLastButton
         style={{ textAlign: "center", marginBottom: "50px" }}
       />
+      { onFetchingArticles ?
+        <CircularProgress style={{ position: "fixed", left: "calc(50% - 35px)", top: "calc(50% - 35px)", width: "70px", height: "70px"}} /> 
+        : ""
+      }
     </div>
   )
 };
@@ -97,15 +135,25 @@ const mapStateToProps=(state = totalState)=>{
 
   return {
     // isLoading: state.isLoading,
+    searchArticleInputValue: state.searchArticleInputValue,
     articlesState: state.articlesState,
     curOffset: state.curOffset,
     totalResults: state.totalResults,
+    onFetchingArticles: state.onFetchingArticles,
   }
 }
 
 const mapStateToDispatch=(dispatch)=>{
   return {
-    
+    getArticles:(input, extraParams)=>{
+      dispatch({type:'GET_ALL_ARTICLES',input, extraParams});
+    },
+    setCurOffset:(payload)=>{
+      dispatch({type:'SET_CURRENT_OFFSET', payload});
+    },
+    setFetchingArticlesStatus:()=>{
+      dispatch({type:'SET_FETCHING_ARTICLES_STATUS'});
+    },
   }
 }
 

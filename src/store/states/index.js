@@ -40,6 +40,7 @@ export const totalState = {
     searchArticleInputValue: "",
     onFetchingArticles: true,
     totalResults: 0,
+    currentPage: "Home"
 }
 
 // export default rootState;

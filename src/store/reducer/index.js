@@ -33,5 +33,13 @@ export default function rootReducer (state = totalState, action) {
             // console.log(action);
             console.log(action.payload);
             return {...state, searchArticleInputValue: action.payload, onFetchingArticles: true}
+        case 'SET_CURRENT_PAGE' : 
+            return { ...state, currentPage: action.payload }
+        case 'SET_CURRENT_OFFSET' :
+            return { ...state, curOffset: action.payload }
+        case 'SET_FETCHING_ARTICLES_STATUS' :
+            return { ...state, onFetchingArticles: true }
+        default: 
+            return state;
     }   
 }

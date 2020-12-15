@@ -7,25 +7,21 @@ import { useHistory } from "react-router-dom";
 
 const ArticlesLoadingPage = (props) => {
 
-  const { searchArticleInputValue, curOffset, onFetchingArticles, getArticles } = props;
-  const history = useHistory();
+  const { searchArticleInputValue, curOffset, onFetchingArticles, getArticles, setCurrentPage } = props;
   
 
   useEffect(() => {
     // console.log('offset')
     // console.log(curOffset)
     getArticles(searchArticleInputValue, {
-      itemsPerPage: 20,
+      itemsPerPage: 21,
       currentOffset: curOffset,
     })
   }, []);
 
-  const navigateToArticlesPage = () => {
-    history.push("/searchResults");
-  }
 
   if(onFetchingArticles == false) {
-    navigateToArticlesPage();
+    setCurrentPage('SearchResultsPage');
   }
 
   return(
@@ -39,7 +35,7 @@ const ArticlesLoadingPage = (props) => {
   );
 };
 
-const mapStateToProps=(state = totalState)=>{
+const mapStateToProps=(state)=>{
   
   return {
     searchArticleInputValue: state.searchArticleInputValue,
@@ -53,6 +49,9 @@ const mapStateToDispatch=(dispatch)=>{
     getArticles:(input, extraParams)=>{
       dispatch({type:'GET_ALL_ARTICLES',input, extraParams});
     },
+    setCurrentPage: (payload) => {
+      dispatch({type:'SET_CURRENT_PAGE', payload});
+    }
   }
 }
 
