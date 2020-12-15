@@ -43,8 +43,14 @@ const Article = (props) => {
   const classes = useStyles();
   const {  currentOriginalPaper, setCurrentPage, getRelatedDois, setCurrentOriginalPaper, setFetchingRelatedDoisStatus } = props;
   let journalDetail = "";
-  journalDetail = props.article.year + props.article.journal + " " + props.article.locator.join(", ")
-  
+  if(props.article.journal != null)
+  {
+    journalDetail = props.article.year + props.article.journal + " " + props.article.locator.join(", ")
+  }
+  else {
+    journalDetail = props.article.year + " " + props.article.locator.join(", ")
+  } 
+
   const buildGraph = () => {
     console.log( props.article.doi );
     setCurrentOriginalPaper( props.article );
@@ -65,7 +71,8 @@ const Article = (props) => {
           component="div"
           className={classes.textInline}
         >
-          {(journalDetail.length>45)?journalDetail.substr(0,45)+'...':journalDetail}
+          {/* {(journalDetail.length>45)?journalDetail.substr(0,45)+'...':journalDetail} */}
+          { journalDetail }
         </Typography>
         <Typography component="p" className={classes.textInline}>
           Authors: {(props.article.authors.length > 45) ? props.article.authors.substr(0, 45) + '...' : props.article.authors}
