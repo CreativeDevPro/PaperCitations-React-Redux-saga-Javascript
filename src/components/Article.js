@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { withRouter } from 'react-router';
 import Link from '@material-ui/core/Link';
 import { teal } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
@@ -41,7 +38,7 @@ const ColorButton = withStyles((theme) => ({
 
 const Article = (props) => {
   const classes = useStyles();
-  const {  currentOriginalPaper, setCurrentPage, getRelatedDois, setCurrentOriginalPaper, setFetchingRelatedDoisStatus } = props;
+  const {  setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus } = props;
   let journalDetail = "";
   if(props.article.journal != null)
   {
@@ -52,11 +49,9 @@ const Article = (props) => {
   } 
 
   const buildGraph = () => {
-    console.log( props.article.doi );
     setCurrentOriginalPaper( props.article );
     setCurrentPage('RelatedDoisLoadingPage');
     setFetchingRelatedDoisStatus();
-    // getRelatedDois(currentOriginalPaper);
     
   }
   return (
@@ -71,7 +66,6 @@ const Article = (props) => {
           component="div"
           className={classes.textInline}
         >
-          {/* {(journalDetail.length>45)?journalDetail.substr(0,45)+'...':journalDetail} */}
           { journalDetail }
         </Typography>
         <Typography component="p" className={classes.textInline}>
@@ -97,15 +91,11 @@ const Article = (props) => {
 const mapStateToProps=(state)=>{
 
   return {
-    currentOriginalPaper: state.currentOriginalPaper,
   }
 }
 
 const mapStateToDispatch=(dispatch)=>{
   return {
-    getRelatedDois: (payload)=>{
-      dispatch({type:'GET_RELATED_DOIS',payload});
-    },
     setCurrentPage: (payload) => {
       dispatch({type:'SET_CURRENT_PAGE', payload});
     },

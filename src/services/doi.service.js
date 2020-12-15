@@ -1,20 +1,7 @@
-import { buildArticleQuery } from '../utils'
 import { AxiosService } from './axios.service'
 
 export const DoiService = (function () {
     const endpoint_get_related_dois = async (doi) => {
-        // $.ajax({
-        //     type: "GET",
-        //     url: buildGetCitationsQuery(doi),
-        //     processData: false,
-        //   }).then(
-        //     (res) => {
-        //         return res;
-        //     },
-        //     (err) => {
-        //         return false;
-        //     }
-        //   );
         let endpoint = "https://opencitations.net/index/coci/api/v1/citations/"
         let data = AxiosService.get(endpoint + doi);
         console.log(endpoint + doi);

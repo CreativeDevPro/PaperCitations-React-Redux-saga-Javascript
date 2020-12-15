@@ -1,7 +1,6 @@
 import * as _ from "lodash"
 
 export function buildArticleQuery(input, extraParams) {
-    // let baseUrl = process.env.API_BASE_URL;
     let baseUrl = 'https://api.crossref.org/works?'
 
     let paginationQuery =

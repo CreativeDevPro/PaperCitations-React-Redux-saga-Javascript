@@ -1,18 +1,9 @@
 import {React, useState } from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import {totalState }from '../../store/states';
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,15 +37,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const {isLoading, getArticles, setSearchArticleInputValue, setCurrentPage } = props;
+  const { setSearchArticleInputValue, setCurrentPage } = props;
   const [inputValue, setInputValue] = useState('')
-  const history = useHistory();
   const handleKeyUp = (e) => {
-    if(e.nativeEvent.keyCode == 13) {
-      if(inputValue != '') {
+    if(e.nativeEvent.keyCode === 13) {
+      if(inputValue !== '') {
         console.log(inputValue);
         setSearchArticleInputValue(inputValue);
-        // history.push("/articles/loading");
         setCurrentPage('ArticlesLoading');
       }
     }
@@ -62,7 +51,6 @@ const Home = (props) => {
   
   return(
     <div style={{ textAlign: 'center' }}>
-      {/* <CircularProgress style={{ position: "absolute", left: "calc(50% - 35px)", top: "calc(50% - 35px)", width: "70px", height: "70px"}} /> */}
         <Typography
           className={classes.mainMsg}
           variant="h4"
@@ -90,12 +78,6 @@ const Home = (props) => {
               
             />
           </Toolbar>
-          {/* <Typography
-            className={classes.mainMsg}
-            variant="h4"
-            color="textSecondary"
-          >{this.props.resultMessage}
-          </Typography> */}
         </div>
       </div>
 

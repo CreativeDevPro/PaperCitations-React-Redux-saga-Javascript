@@ -1,9 +1,5 @@
 import {React, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import { totalState } from '../../store/states';
 import { connect } from 'react-redux';
-import { ArticleService } from '../../services/article.service'
-import { useHistory } from "react-router-dom";
 
 const RelatedDoisLoadingPage = (props) => {
 
@@ -11,13 +7,11 @@ const RelatedDoisLoadingPage = (props) => {
   
 
   useEffect(() => {
-    // console.log('offset')
-    // console.log(curOffset)
     getRelatedDois(currentOriginalPaper.doi);
   }, []);
 
 
-  if(onFetchingRelatedDois == false) {
+  if(onFetchingRelatedDois === false) {
     setCurrentPage('ArticleDetailsPage');
   }
 
@@ -57,5 +51,4 @@ RelatedDoisLoadingPage.propTypes = {
 
 RelatedDoisLoadingPage.defaultProps = {};
 
-// export default ArticlesLoadingPage;
 export default connect(mapStateToProps, mapStateToDispatch)(RelatedDoisLoadingPage);

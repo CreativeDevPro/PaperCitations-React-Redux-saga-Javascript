@@ -1,9 +1,5 @@
 import {React, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import { totalState } from '../../store/states';
 import { connect } from 'react-redux';
-import { ArticleService } from '../../services/article.service'
-import { useHistory } from "react-router-dom";
 
 const ArticlesLoadingPage = (props) => {
 
@@ -11,8 +7,6 @@ const ArticlesLoadingPage = (props) => {
   
 
   useEffect(() => {
-    // console.log('offset')
-    // console.log(curOffset)
     getArticles(searchArticleInputValue, {
       itemsPerPage: 21,
       currentOffset: curOffset,
@@ -20,7 +14,7 @@ const ArticlesLoadingPage = (props) => {
   }, []);
 
 
-  if(onFetchingArticles == false) {
+  if(onFetchingArticles === false) {
     setCurrentPage('SearchResultsPage');
   }
 
@@ -39,8 +33,8 @@ const mapStateToProps=(state)=>{
   
   return {
     searchArticleInputValue: state.searchArticleInputValue,
-    curOffset: state.curOffset,
     onFetchingArticles: state.onFetchingArticles,
+    curOffset: state.curOffset,
   }
 }
 
@@ -61,5 +55,4 @@ ArticlesLoadingPage.propTypes = {
 
 ArticlesLoadingPage.defaultProps = {};
 
-// export default ArticlesLoadingPage;
 export default connect(mapStateToProps, mapStateToDispatch)(ArticlesLoadingPage);

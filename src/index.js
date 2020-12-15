@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Pages from './pages';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import { store } from './store';
 import { Provider } from 'react-redux';
-import { createMemoryHistory } from 'history'
 import CreateStore from './store';
 import rootSaga from './store/saga';
 
-// const history = createMemoryHistory(location)
 const store=CreateStore();
 store.runSaga(rootSaga);
 ReactDOM.render(

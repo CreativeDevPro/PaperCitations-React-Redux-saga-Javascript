@@ -1,6 +1,5 @@
-import { buildArticleQuery,  buildGetCitationsQuery, buildGetMetadataQuery} from '../utils'
+import { buildArticleQuery} from '../utils'
 import { AxiosService } from './axios.service'
-import $ from 'jquery';
 
 export const ArticleService = (function () {
     const endpoint_get_articles = async (input, extraParams) => {

@@ -1,25 +1,13 @@
-import {React , useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import { ArticleService } from '../services/article.service'
-// import { getArticles } from './../../store/actions/articles.action'
+import {React, useState} from 'react';
 import { connect } from 'react-redux';
 import {totalState }from '../store/states';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Card from "@material-ui/core/Card";
@@ -33,9 +21,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // height: "calc(100% - 65px)",
-    // maarginTop: "65px",
-
   },
   hide: {
     display: 'none',
@@ -54,15 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerHeader: {
     display: 'flex',
-    // position: "absolute",
-    // alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'space-between',
   },
   content: {
-    // marginTop: "100px",
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -93,14 +75,6 @@ const RelatedDoisList = (props) => {
   const [loadingMetaDoiId, setLoadingMetaDoiId] = useState(-1);
   const classes = useStyles();
   const theme = useTheme();
-  // useEffect(() => {
-  
-  //   getArticles('artificial intelligence', {
-  //     itemsPerPage: 20,
-  //     currentOffset: 0,
-  //   })
-  //   console.log('initialized');
-  // }, []);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,13 +102,12 @@ const RelatedDoisList = (props) => {
   }
 
   const handleMouseOutOfList = () => {
-    if(selectedId == 0) {
+    if(selectedId === 0) {
       focusOriginalPaper();
     }
     else if(selectedId > 0){
       focusDoi(selectedId - 1, relatedDoiState[selectedId-1])
     }
-    // console.log('uuuuuuuuuuu');
   }
 
   const focusOriginalPaper = () => {
@@ -197,19 +170,9 @@ const RelatedDoisList = (props) => {
                   </IconButton>
                 </div>
                 <Divider />
-                {/* <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-                </List> */}
-
-                    
-                
+       
                 <List style={{ overflowY: "auto"}} onMouseOut={() => { handleMouseOutOfList() }}>
-                  <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId == 0 ? "rgb(232, 232, 232)" : "") }}
+                  <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === 0 ? "rgb(232, 232, 232)" : "") }}
                     onMouseOver={() => { focusOriginalPaper() }}
                     onClick={selectItem(0)}
                   >
@@ -239,12 +202,11 @@ const RelatedDoisList = (props) => {
                             
                         </CardContent>
                         {
-                          (focusedId == 0 || selectedId == 0)?
+                          (focusedId === 0 || selectedId === 0)?
                           <div style={{display: "flex", justifyContent: "space-around"}}>
                             <Link href={`http://dx.doi.org/${currentOriginalPaper.doi}`} variant="h6" color="inherit" target="_blank" rel="opener" style={{marginTop: "-3px"}}>
                               <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>Open Link</Button>
                             </Link>
-                              {/* <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>Load Metadata</Button> */}
                               <div style={{ color: "blue", textAlign: "center", fontSize: "12px", width: "110px", marginTop: "4px" }}>
                                 Original Paper
                               </div>
@@ -255,7 +217,7 @@ const RelatedDoisList = (props) => {
                     <Divider />
                   </ListItem>
                   {relatedDoiState.map((doi, index) => (
-                    <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId == index + 1 ? "rgb(232, 232, 232)" : "")}} 
+                    <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === index + 1 ? "rgb(232, 232, 232)" : "")}} 
                     onMouseOver={() => { focusDoi(index, doi) }}
                     onClick={selectItem(index + 1)}
                     >
@@ -284,7 +246,7 @@ const RelatedDoisList = (props) => {
                             </div>
                             
                         </CardContent>
-                        { ((index + 1) == focusedId || selectedId == index + 1) ?
+                        { ((index + 1) === focusedId || selectedId === index + 1) ?
                           <div style={{display: "flex", justifyContent: "space-around"}}>
                             <Link href={`http://dx.doi.org/${doi.citing}`} variant="h6" color="inherit" target="_blank" rel="opener" style={{marginTop: "-3px"}}>
                               <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>Open Link</Button>
@@ -294,7 +256,7 @@ const RelatedDoisList = (props) => {
                                 :
                                 <Button variant="outlined" onClick={loadMetaData(index, doi.citing)} style={{ width: "110px", height: "28px", fontSize: "9px"}}>
                                   {
-                                    (loadingMetaDoiId == index) ? 
+                                    (loadingMetaDoiId === index) ? 
                                     <CircularProgress style={{ width: "18px", height: "18px"}} /> :
                                     "Load Metadata"
                                   }
@@ -325,7 +287,6 @@ const RelatedDoisList = (props) => {
 const mapStateToProps=(state = totalState)=>{
 
   return {
-    // articlesState: state.articlesState,
     relatedDoiState: state.relatedDoiState,
     currentOriginalPaper: state.currentOriginalPaper,
   }

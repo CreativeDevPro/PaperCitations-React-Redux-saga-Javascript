@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 import Home from './Home';
 import { connect } from 'react-redux';
 import Header from '../components/Header'
-import {totalState }from '../store/states';
 import SearchResultsPage from './SearchResultsPage'
 import ArticleDetailsPage from './ArticleDetailsPage'
 import ArticlesLoadingPage from './ArticlesLoadingPage'
@@ -23,34 +16,26 @@ const  Pages = (props) => {
             <Header />
         </nav>
         {
-          (currentPage == 'Home') ?
+          (currentPage === 'Home') ?
           <Home /> : ''
         }
         {
-          (currentPage == 'ArticlesLoading') ?
+          (currentPage === 'ArticlesLoading') ?
           <ArticlesLoadingPage /> : ''
         }
         {
-          (currentPage == 'SearchResultsPage') ?
+          (currentPage === 'SearchResultsPage') ?
           <SearchResultsPage /> : ''
         }
         {
-          (currentPage == 'ArticleDetailsPage') ?
+          (currentPage === 'ArticleDetailsPage') ?
           <ArticleDetailsPage /> : ''
         }
         {
-          (currentPage == 'RelatedDoisLoadingPage') ?
+          (currentPage === 'RelatedDoisLoadingPage') ?
           <RelatedDoisLoadingPage /> : ''
         }
         
-        
-        
-        {/* <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/articles/loading" component={ArticlesLoadingPage} />
-            <Route exact path="/searchResults" component={SearchResultsPage} />
-            <Route exact path="/details" component={ArticleDetailsPage} />
-        </Switch> */}
     </div>
   );
 }

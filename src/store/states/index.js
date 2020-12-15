@@ -1,12 +1,3 @@
-// import { IRootState } from '../../models';
-// import { articlesState } from './articles.state';
-// import { relatedDoiState } from './related-doi.state'
-
-// const rootState = {
-//     articlesState,
-//     relatedDoiState,
-// };
-
 export const totalState = {
     articlesState: [],
     relatedDoiState: [],

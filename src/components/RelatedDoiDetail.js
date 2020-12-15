@@ -1,25 +1,11 @@
-import {React , useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import { ArticleService } from '../services/article.service'
-// import { getArticles } from './../../store/actions/articles.action'
+import {React, useState} from 'react';
 import { connect } from 'react-redux';
 import {totalState }from '../store/states';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from "@material-ui/core/Button";
@@ -29,8 +15,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // height: "calc(100% - 65px)",
-    // maarginTop: "65px",
   },
   hide: {
     display: 'none',
@@ -50,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
   },
@@ -88,14 +71,6 @@ const RelatedDoiDetail = (props) => {
   const [open, setOpen] = useState(true);
   const classes = useStyles();
   const theme = useTheme();
-  // useEffect(() => {
-  
-  //   getArticles('artificial intelligence', {
-  //     itemsPerPage: 20,
-  //     currentOffset: 0,
-  //   })
-  //   console.log('initialized');
-  // }, []);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -125,7 +100,6 @@ const RelatedDoiDetail = (props) => {
                 <div style={{marginLeft: "20px"}}>Doi Info</div>
                 </div>
                 <Divider />
-                {/* <CardContent style={{ display: (!this.state.metadataLoding ? "inline" : "none") }}> */}
                   {
                     props.selectedDoi.containMetaData ?
                     <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
@@ -155,10 +129,10 @@ const RelatedDoiDetail = (props) => {
                     </Typography> 
                     </div> :
                     "" }
-                    { props.selectedDoi.cited != '' ?
+                    { props.selectedDoi.cited !== '' ?
                       <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
                         {
-                          !(props.selectedDoi.cited == 'original') ?
+                          !(props.selectedDoi.cited === 'original') ?
                           <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
                               Build Graph           
                           </Button> :
@@ -168,39 +142,6 @@ const RelatedDoiDetail = (props) => {
                       </Typography> :
                       ""
                     }
-                  {/* <Typography
-                    color="textSecondary"
-                    variant="subheading"
-                    component="div"
-                    className={classes.lineHeight1_5em}
-                  >
-                    Journal:   {selectedDoi.article.metaData.journal}{" "}
-                  </Typography> */}
-                  {/* <Typography>
-                    <p style={{ display: this.state.inx == 0 ? "block" : "none"}}>Original Paper</p>
-                    <Button style={{ display: this.state.inx != 0 ? "block" : "none"}} variant="contained" size="small" color="default"
-                      onClick={() => { }}>
-                      Build a graph
-                    </Button>
-                  </Typography> */}
-              {/* </CardContent> */}
-                {/* <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-                </List> */}
-                {/* <Divider /> */}
-                {/* <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-                </List> */}
             </Drawer>
             </div>
         :
