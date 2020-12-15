@@ -50,14 +50,6 @@ const Home = (props) => {
   const [inputValue, setInputValue] = useState('')
   const history = useHistory();
   const handleKeyUp = (e) => {
-    //Submit on ENTER
-    // if (!this.props.loading && e.nativeEvent.keyCode === 13) {
-    //   let query = e.target.value;
-    //   if (query && this.state.lastQuery !== query) {
-    //     // this.props.onSubmit(query);
-    //     // this.setState({ lastQuery: query });
-    //   }
-    // }
     if(e.nativeEvent.keyCode == 13) {
       if(inputValue != '') {
         console.log(inputValue);

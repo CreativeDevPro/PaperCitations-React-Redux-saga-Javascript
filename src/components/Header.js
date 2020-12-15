@@ -1,4 +1,4 @@
-import {React , useEffect} from 'react';
+import {React , useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { ArticleService } from '../services/article.service'
 // import { getArticles } from './../../store/actions/articles.action'
@@ -61,20 +61,18 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '20ch',
+      width: '35ch',
       '&:focus': {
-        width: '25ch',
+        width: '40ch',
       },
     },
   },
 }));
 
 const Header = (props) => {
-  const {articlesState, getArticles} = props;
-  const abc = () => {
+  const { searchArticleInputValue, setSearchArticleInputValue, setCurrentPage } = props;
+  const [inputValue, setInputValue] = useState('')
 
-    console.log(articlesState)
-  }
   const classes = useStyles();
   // useEffect(() => {
   
@@ -84,6 +82,16 @@ const Header = (props) => {
   //   })
   //   console.log('initialized');
   // }, []);
+  const handleKeyUp = (e) => {
+    if(e.nativeEvent.keyCode == 13) {
+      if(inputValue != '') {
+        console.log(inputValue);
+        setSearchArticleInputValue(inputValue);
+        // history.push("/articles/loading");
+        setCurrentPage('ArticlesLoading');
+      }
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -100,19 +108,24 @@ const Header = (props) => {
           <Typography className={classes.title} variant="h6" noWrap>
             Science Garden
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search Articles'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          {searchArticleInputValue != '' ?
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search Articles'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onKeyUp={handleKeyUp}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </div> :
+            ""
+          }
         </Toolbar>
       </AppBar>
     </div>
@@ -122,15 +135,19 @@ const Header = (props) => {
 const mapStateToProps=(state = totalState)=>{
 
   return {
-    articlesState: state.articlesState,
+    searchArticleInputValue: state.searchArticleInputValue,
+    onFetchingArticles: state.onFetchingArticles,
   }
 }
 
 const mapStateToDispatch=(dispatch)=>{
   return {
-    getArticles:(input, extraParams)=>{
-      dispatch({type:'GET_ALL_ARTICLES',input, extraParams});
+    setSearchArticleInputValue: (payload) => {
+      dispatch({type:'SET_SEARCH_ARTICLE_INPUT_VALUE', payload});
     },
+    setCurrentPage: (payload) => {
+      dispatch({type:'SET_CURRENT_PAGE', payload});
+    }
   }
 }
 Header.propTypes = {};
