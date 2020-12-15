@@ -124,7 +124,9 @@ const SearchResultsPage = (props) => {
         style={{ textAlign: "center", marginBottom: "50px" }}
       />
       { onFetchingArticles ?
-        <CircularProgress style={{ position: "fixed", left: "calc(50% - 35px)", top: "calc(50% - 35px)", width: "70px", height: "70px"}} /> 
+        <div style={{ position: "fixed", left: "0px", top: "0px", backgroundColor: "white", width: "100%", height: "100%", zIndex: "1000", opacity: "0.6"}}>
+          <CircularProgress style={{ position: "fixed", left: "calc(50% - 35px)", top: "calc(50% - 35px)", width: "70px", height: "70px"}} /> 
+        </div>
         : ""
       }
     </div>
