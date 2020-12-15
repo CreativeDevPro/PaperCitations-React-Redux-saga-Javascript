@@ -85,6 +85,7 @@ const Header = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
+            <img src="logo.png"></img>
             Science Garden
           </Typography>
           {searchArticleInputValue !== '' ?

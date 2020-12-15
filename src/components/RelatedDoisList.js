@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from '@material-ui/core/Link';
 
-const drawerWidth = 240;
+const drawerWidth = "calc(20%)";
 
 const useStyles = makeStyles((theme) => ({
   root: {
