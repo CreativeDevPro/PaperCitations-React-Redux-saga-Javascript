@@ -15,6 +15,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from '@material-ui/core/Link';
+import { FilterNone } from '@material-ui/icons';
 
 const drawerWidth = "calc(20%)";
 
@@ -164,8 +165,8 @@ const RelatedDoisList = (props) => {
                 }}
             >
                 <div className={classes.drawerHeader}>
-                  <Button onClick= { backToSearchResult } style={{ fontSize: "12px", marginTop: "6px"}} color="primary">{`<< Backward`}</Button>
-                  <IconButton onClick={handleDrawerClose}>
+                  <Button onClick= { backToSearchResult } style={{ fontSize: "12px", marginTop: "6px"}} color="primary">{`<< Back`}</Button>
+                  <IconButton onClick={handleDrawerClose} style={{ height: "50px", marginTop: "auto", marginBottom: "auto"}}>
                       {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                   </IconButton>
                 </div>
