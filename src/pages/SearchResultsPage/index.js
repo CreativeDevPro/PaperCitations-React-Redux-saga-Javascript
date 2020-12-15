@@ -99,7 +99,7 @@ const SearchResultsPage = (props) => {
                 <Grid item xs={4} xl={1} style={{height:"100%"}}>
                   <Article
                     key={`articles-${index}`}
-                    article={parsedArticle}
+                    article={parsedArticle} 
                     // articles={this.props.articles}
                     // totalResults={this.props.totalResults}
                     // queryInput={this.props.lastQuerySettings.input} />

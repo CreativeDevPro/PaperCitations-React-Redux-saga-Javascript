@@ -10,7 +10,7 @@
 export const totalState = {
     articlesState: [],
     relatedDoiState: [],
-    selectedDoii : {
+    selectedDoi : {
         cited: '',
         creation: '',
         oci: '',
@@ -33,14 +33,17 @@ export const totalState = {
             oa_link: '',
             citation: '',
             title: '',
+            journal: '',
         }
     },
     curOffset: 0,
     isLoading: false,
     searchArticleInputValue: "",
     onFetchingArticles: true,
+    onFetchingRelatedDois: true,
     totalResults: 0,
-    currentPage: "Home"
+    currentPage: "Home",
+    currentOriginalPaper: {},
 }
 
 // export default rootState;

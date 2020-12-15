@@ -11,6 +11,7 @@ import { withRouter } from 'react-router';
 import Link from '@material-ui/core/Link';
 import { teal } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -40,8 +41,18 @@ const ColorButton = withStyles((theme) => ({
 
 const Article = (props) => {
   const classes = useStyles();
+  const {  currentOriginalPaper, setCurrentPage, getRelatedDois, setCurrentOriginalPaper, setFetchingRelatedDoisStatus } = props;
   let journalDetail = "";
   journalDetail = props.article.year + props.article.journal + " " + props.article.locator.join(", ")
+  
+  const buildGraph = () => {
+    console.log( props.article.doi );
+    setCurrentOriginalPaper( props.article );
+    setCurrentPage('RelatedDoisLoadingPage');
+    setFetchingRelatedDoisStatus();
+    // getRelatedDois(currentOriginalPaper);
+    
+  }
   return (
     <Card className={classes.card} raised style={{ margin: "5px, 20px" }} >
       <CardContent className={classes.contentArea}>
@@ -68,7 +79,7 @@ const Article = (props) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.buttonArea}>
-        <ColorButton variant="contained" color="primary" className={classes.margin} >
+        <ColorButton variant="contained" color="primary" className={classes.margin} onClick={ buildGraph }>
           Build Graph
         </ColorButton>
       </CardActions>
@@ -76,8 +87,33 @@ const Article = (props) => {
   )
 };
 
+const mapStateToProps=(state)=>{
+
+  return {
+    currentOriginalPaper: state.currentOriginalPaper,
+  }
+}
+
+const mapStateToDispatch=(dispatch)=>{
+  return {
+    getRelatedDois: (payload)=>{
+      dispatch({type:'GET_RELATED_DOIS',payload});
+    },
+    setCurrentPage: (payload) => {
+      dispatch({type:'SET_CURRENT_PAGE', payload});
+    },
+    setCurrentOriginalPaper: (payload) => {
+      dispatch({type:'SET_CURRENT_ORIGINAL_PAPER', payload});
+    },
+    setFetchingRelatedDoisStatus: (payload) => {
+      dispatch({type:'SET_FETCHING_RELATED_DOIS_STATUS', payload});
+    }
+  }
+}
+
+
 Article.propTypes = {};
 
 Article.defaultProps = {};
 
-export default Article;
+export default connect(mapStateToProps, mapStateToDispatch)(Article);

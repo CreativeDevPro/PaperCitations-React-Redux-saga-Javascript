@@ -20,3 +20,24 @@ export const setSearchArticleInputValue = (payload) => {
         payload,
     }
 }
+
+export const getRelatedDois = (payload) => {
+    return {
+        type: 'GET_RELATED_DOIS',
+        payload,
+    }
+}
+
+export const storeRelatedDois = (payload) => {
+    return {
+        type: 'STORE_RELATED_DOIS',
+        payload,
+    }
+}
+
+export const storeDoiMetadata = (payload) => {
+    return {
+        type: 'STORE_DOI_METADATA',
+        payload
+    }
+}

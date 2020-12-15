@@ -12,6 +12,7 @@ import {totalState }from '../store/states';
 import SearchResultsPage from './SearchResultsPage'
 import ArticleDetailsPage from './ArticleDetailsPage'
 import ArticlesLoadingPage from './ArticlesLoadingPage'
+import RelatedDoisLoadingPage from './RelatedDoisLoadingPage'
 
 const  Pages = (props) => {
   const { currentPage } = props;
@@ -37,6 +38,11 @@ const  Pages = (props) => {
           (currentPage == 'ArticleDetailsPage') ?
           <ArticleDetailsPage /> : ''
         }
+        {
+          (currentPage == 'RelatedDoisLoadingPage') ?
+          <RelatedDoisLoadingPage /> : ''
+        }
+        
         
         
         {/* <Switch>
