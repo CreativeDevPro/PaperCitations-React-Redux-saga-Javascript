@@ -89,7 +89,7 @@ const RelatedDoisList = (props) => {
 
   const [open, setOpen] = useState(true);
   const [focusedId, setFocusedId] = useState(-1);
-  const [selectedId, setSelectedId] = useState(-1);
+  const [selectedId, setSelectedId] = useState(0);
   const [loadingMetaDoiId, setLoadingMetaDoiId] = useState(-1);
   const classes = useStyles();
   const theme = useTheme();
@@ -126,6 +126,17 @@ const RelatedDoisList = (props) => {
   const backToSearchResult = () => {
     setCurrentPage('SearchResultsPage');
   }
+
+  const handleMouseOutOfList = () => {
+    if(selectedId == 0) {
+      focusOriginalPaper();
+    }
+    else if(selectedId > 0){
+      focusDoi(selectedId - 1, relatedDoiState[selectedId-1])
+    }
+    // console.log('uuuuuuuuuuu');
+  }
+
   const focusOriginalPaper = () => {
     let selectedDoi =  {
       cited: 'original',
@@ -197,7 +208,7 @@ const RelatedDoisList = (props) => {
 
                     
                 
-                <List style={{ overflowY: "auto"}}>
+                <List style={{ overflowY: "auto"}} onMouseOut={() => { handleMouseOutOfList() }}>
                   <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId == 0 ? "rgb(232, 232, 232)" : "") }}
                     onMouseOver={() => { focusOriginalPaper() }}
                     onClick={selectItem(0)}
