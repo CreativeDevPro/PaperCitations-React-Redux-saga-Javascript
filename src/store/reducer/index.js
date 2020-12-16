@@ -55,7 +55,7 @@ export default function rootReducer (state = totalState, action) {
             return {...state, selectedDoi: action.payload }
         
         case 'FAILED_FETCHING_ARTICLES':
-            return {...state, currentPage: "Home"}
+            return {...state, currentPage: "Home", searchArticleInputValue: ''}
         case 'FAILED_FETCHING_RELATED_PAPERS':
             return {...state, currentPage: "SearchResultsPage"}
         default: 
