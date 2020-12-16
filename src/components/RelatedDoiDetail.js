@@ -97,7 +97,7 @@ const RelatedDoiDetail = (props) => {
                     {theme.direction === 'rtr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
                 
-                <div style={{marginLeft: "20px"}}>Doi Info</div>
+                <div style={{display: "flex", justifyContent: "center", width: "calc(100% - 65px)"}}>Doi Info</div>
                 </div>
                 <Divider />
                   {
@@ -128,7 +128,16 @@ const RelatedDoiDetail = (props) => {
                       Date:   {props.selectedDoi.metaData.year}
                     </Typography> 
                     </div> :
-                    "" }
+                    <Typography
+                      color="textSecondary"
+                      variant="subheading"
+                      component="div"
+                      className={classes.lineHeight1_5em}
+                      style={{ fontSize: "14px", paddingLeft: "8px", paddingTop: "5px"}}
+                    >
+                      DOI:   {props.selectedDoi.citing}
+                    </Typography>
+                     }
                     { props.selectedDoi.cited !== '' ?
                       <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
                         {
