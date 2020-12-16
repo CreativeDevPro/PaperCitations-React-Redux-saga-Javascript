@@ -93,7 +93,7 @@ const RelatedDoiDetail = (props) => {
                 }}
             >
                 <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerClose}>
+                <IconButton id="rightDirectionCloseIcon" onClick={handleDrawerClose}> 
                     {theme.direction === 'rtr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
                 

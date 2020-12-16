@@ -91,7 +91,7 @@ const Header = (props) => {
           {searchArticleInputValue !== '' ?
             <div className={classes.search}>
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <SearchIcon id="searchIcon" />
               </div>
               <InputBase
                 placeholder='Search Articles'

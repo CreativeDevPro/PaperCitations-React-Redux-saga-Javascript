@@ -201,10 +201,11 @@ const NetworkDiagram = (graph) => {
           d.fy = null;
         }
       }
-    
+    let width = window.innerWidth;
+    let height = window.innerHeight;
         return (
                 <svg id="networkgraph"
-                width={1200} height={800} >
+                width={width} height={(height - 90)} >
                 </svg>
         )
     }

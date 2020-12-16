@@ -33,7 +33,7 @@ const ArticleDetailsPage = (props) => {
   return (
     <div>
       <RelatedDoisList />
-        <NetworkDiagram nodes={nodes} links={links} />
+      <NetworkDiagram nodes={nodes} links={links} />
       <RelatedDoiDetail />
     </div>
   )
