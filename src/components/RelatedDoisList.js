@@ -65,7 +65,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "5px 10px",
     padding: "unset",
   },
+  
 }));
+
+
 
 const RelatedDoisList = (props) => {
   const {relatedDoiState, currentOriginalPaper, setCurrentPage, loadMetaDataInfo, setSelectedDoi} = props;
@@ -180,9 +183,9 @@ const RelatedDoisList = (props) => {
                 </div>
                 <Divider />
        
-                <List style={{ overflowY: "auto"}} onMouseLeave={() => { handleMouseOutOfList() }}>
+                <List style={{ overflowY: "auto",className:"scrollbar -webkit-scrollbar"}} onMouseLeave={() => { handleMouseOutOfList(); articleslistMouseOut();}}>
                   <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === 0 ? "rgb(232, 232, 232)" : "") }}
-                    onMouseEnter={() => { focusOriginalPaper(true) }}
+                    onMouseEnter={() => { focusOriginalPaper(true); articleslistMouseEvent(currentOriginalPaper); }}
             
                     onClick={selectItem(0)}
                   >
@@ -227,8 +230,9 @@ const RelatedDoisList = (props) => {
                     <Divider />
                   </ListItem>
                   {relatedDoiState.map((doi, index) => (
+                    
                     <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === index + 1 ? "rgb(232, 232, 232)" : "")}} 
-                    onMouseEnter={() => { focusDoi(index, doi, true) }}
+                    onMouseEnter={() => { focusDoi(index, doi, true);articleslistMouseEvent(doi); }}
                     onClick={selectItem(index + 1)}
                     >
                       <Card raised
@@ -317,5 +321,48 @@ const mapStateToDispatch=(dispatch)=>{
 RelatedDoisList.propTypes = {};
 
 RelatedDoisList.defaultProps = {};
+
+function articleslistMouseEvent(overedArticle){
+  var isConnectDois = new Array();
+  if (document.getElementsByTagName('line').length > 0) {
+      for (let item of document.getElementsByTagName('line')) {
+          item.style.opacity = 0.2;
+          if (item.__data__.source.doi == overedArticle.citing) {
+              if (isConnectDois.indexOf(item.__data__.source.doi) == -1) isConnectDois.push(item.__data__.source.doi)
+              isConnectDois.push(item.__data__.target.doi)
+              item.style.opacity = 1;
+          } else if (item.__data__.target.doi == overedArticle.citing) {
+              if (isConnectDois.indexOf(item.__data__.target.doi) == -1) isConnectDois.push(item.__data__.target.doi)
+              isConnectDois.push(item.__data__.source.doi)
+              item.style.opacity = 1;
+          }
+      }
+  } else {
+      isConnectDois.push(overedArticle.citing);
+  }
+  isConnected(isConnectDois);
+}
+function isConnected(isConnectDois){
+  for (let item of document.getElementsByTagName('circle')) {
+      item.style.opacity = 0.2
+  }
+  for (let item of document.getElementsByTagName('circle')) {
+
+      for (let doi of isConnectDois) {
+          if (doi == item.__data__.doi) {
+              item.style.opacity = 1
+          }
+      }
+  }
+}
+
+function articleslistMouseOut(){
+  for (let item of document.getElementsByTagName('line')) {
+    item.style.opacity = 1;
+  }
+  for (let item of document.getElementsByTagName('circle')) {
+    item.style.opacity = 1
+}
+}
 
 export default connect(mapStateToProps, mapStateToDispatch)(RelatedDoisList);
