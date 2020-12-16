@@ -237,7 +237,7 @@ const RelatedDoisList = (props) => {
                         style={{  height: "auto", width: "100%" , paddingBottom: "5px", boxShadow: "none", cursor: "pointer", background: "transparent"}}>
                         <CardContent className={classes.card} >
                             <Typography gutterBottom variant="h6" component="h6" style={{ overflow: "hidden", textOverflow: "ellipsis", WebkitLineClamp: "2", display: "-webkit-box", WebkitBoxOrient: "vertical" , lineHeight: "1.1em", fontSize: "18px" }}>
-                            { doi.containMetaData ? doi.metaData.source_title : doi.citing }
+                            { doi.containMetaData ? doi.metaData.title : doi.citing }
                             </Typography>
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography
@@ -282,7 +282,6 @@ const RelatedDoisList = (props) => {
                     </Card>
                     <Divider />
                   </ListItem>
-                    // <div>sdfdsaf</div>
                 ))}
                 </List>
             </Drawer>
