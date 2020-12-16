@@ -155,7 +155,7 @@ const RelatedDoisList = (props) => {
     setSelectedDoi(selectedDoi);
     if(isFocusChange === true)
       setFocusedId(0);
-    else 
+    else
       setFocusedId(selectedId);
   }
   return (

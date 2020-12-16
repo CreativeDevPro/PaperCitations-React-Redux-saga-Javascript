@@ -97,7 +97,7 @@ const RelatedDoiDetail = (props) => {
                     {theme.direction === 'rtr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
                 
-                <div style={{display: "flex", justifyContent: "center", width: "calc(100% - 65px)"}}>Doi Info</div>
+                <div style={{display: "flex", justifyContent: "center", width: "calc(100% - 65px)"}}>Paper Info</div>
                 </div>
                 <Divider />
                   {
