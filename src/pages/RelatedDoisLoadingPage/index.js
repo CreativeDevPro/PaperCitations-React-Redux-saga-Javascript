@@ -16,7 +16,7 @@ const RelatedDoisLoadingPage = (props) => {
   }
 
   return(
-  <div style={{position: "fixed", width: "100%", left: "0px", height: "100%", backgroundColor: "#ffff", display: "flex", justifyContent: "center", verticalAlign: "middle", alignItems: "center"}}>
+  <div style={{position: "fixed", width: "100%", left: "0px", height: "calc(100vh - 65px)", backgroundColor: "#ffff", display: "flex", justifyContent: "center", verticalAlign: "middle", alignItems: "center"}}>
     <div style={{marginLeft: "auto", marginRight: "auto", marginTop: "auto", marginBottom: "auto"}}>
       <h1>Loading graph...</h1><br></br>
       <p>This normally takes a few seconds, but on rare occasions may take up to several minutes.</p>
