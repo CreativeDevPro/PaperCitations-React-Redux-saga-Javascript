@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis", WebkitLineClamp: "1", display: "-webkit-box", WebkitBoxOrient: "vertical", whiteSpace: "normal", overflow: "hidden"
   },
   buttonArea: {
-    paddingLeft: "24px"
+    paddingLeft: "24px",
+    paddingBottom: "12px",
   }
 
 }));
