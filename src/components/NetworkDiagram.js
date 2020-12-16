@@ -18,7 +18,7 @@ const NetworkDiagram = (graph) => {
     
     
     function initDiagram(){
-        $("svg *").remove();
+        $("svg#networkgraph").empty();
         let svg = d3.select("svg");
         let width = $(svg.node()).parent().width();
         let height = $(svg.node()).parent().height();
@@ -205,7 +205,7 @@ const NetworkDiagram = (graph) => {
     let height = window.innerHeight;
         return (
   
-          <svg id="networkgraph"
+          <svg id="networkgraph" 
           width={width} height={(height - 90)} >
           </svg>
         )
