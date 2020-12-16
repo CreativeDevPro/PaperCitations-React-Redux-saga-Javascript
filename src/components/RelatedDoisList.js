@@ -148,7 +148,7 @@ const RelatedDoisList = (props) => {
                   title: currentOriginalPaper.title, 
                   doi: currentOriginalPaper.doi,
                   year: currentOriginalPaper.year,
-                  author: currentOriginalPaper.author,
+                  author: currentOriginalPaper.authors,
 
                 }
     selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
