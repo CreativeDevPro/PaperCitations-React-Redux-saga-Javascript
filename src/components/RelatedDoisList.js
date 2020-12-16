@@ -182,7 +182,6 @@ const RelatedDoisList = (props) => {
        
                 <List style={{ overflowY: "auto"}} onMouseLeave={() => { handleMouseOutOfList() }}>
                   <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === 0 ? "rgb(232, 232, 232)" : "") }}
-                    // onMouseOut={() => { handleMouseOutOfList() }}
                     onMouseEnter={() => { focusOriginalPaper(true) }}
             
                     onClick={selectItem(0)}
@@ -229,7 +228,6 @@ const RelatedDoisList = (props) => {
                   </ListItem>
                   {relatedDoiState.map((doi, index) => (
                     <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === index + 1 ? "rgb(232, 232, 232)" : "")}} 
-                    // onMouseLe={() => { handleMouseOutOfList() }}
                     onMouseEnter={() => { focusDoi(index, doi, true) }}
                     onClick={selectItem(index + 1)}
                     >

@@ -104,11 +104,17 @@ const RelatedDoiDetail = (props) => {
                     props.selectedDoi.containMetaData ?
                     <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                     <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                      { props.selectedDoi.metaData.title}
+                      <b>Title</b>: { props.selectedDoi.metaData.title}
                     </Typography>
+                    <br></br>
                     <Typography component="p" className={classes.lineHeight1_5em}>
-                      Authors: {props.selectedDoi.metaData.authors}
+                      <b>Source</b>: {props.selectedDoi.metaData.source_title}
                     </Typography>
+                    <br></br>
+                    <Typography component="p" className={classes.lineHeight1_5em}>
+                      <b>Authors</b>: {props.selectedDoi.metaData.author}
+                    </Typography>
+                    <br></br>
                     <Typography
                       color="textSecondary"
                       variant="subheading"
@@ -116,7 +122,7 @@ const RelatedDoiDetail = (props) => {
                       className={classes.lineHeight1_5em}
                       style={{ fontSize: "14px" }}
                     >
-                      DOI:   {props.selectedDoi.metaData.doi}
+                      <b>DOI</b>: {props.selectedDoi.metaData.doi}
                     </Typography>
                     <Typography
                       color="textSecondary"
@@ -125,7 +131,7 @@ const RelatedDoiDetail = (props) => {
                       className={classes.lineHeight1_5em}
                       style={{ fontSize: "14px"}}
                     >
-                      Date:   {props.selectedDoi.metaData.year}
+                      <b>Year</b>:   {props.selectedDoi.metaData.year}
                     </Typography> 
                     </div> :
                     <Typography
@@ -135,7 +141,9 @@ const RelatedDoiDetail = (props) => {
                       className={classes.lineHeight1_5em}
                       style={{ fontSize: "14px", paddingLeft: "8px", paddingTop: "5px"}}
                     >
-                      DOI:   {props.selectedDoi.citing}
+                      <b>DOI</b>:   {props.selectedDoi.citing}
+                      <br></br>
+                      <b>Creation</b>: {props.selectedDoi.creation}
                     </Typography>
                      }
                     { props.selectedDoi.cited !== '' ?
@@ -143,7 +151,7 @@ const RelatedDoiDetail = (props) => {
                         {
                           !(props.selectedDoi.cited === 'original') ?
                           <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
-                              Build Graph           
+                              Build Graph
                           </Button> :
                           "Original Paper"
                         }
