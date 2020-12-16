@@ -3,6 +3,7 @@ import RelatedDoisList from './../../components/RelatedDoisList'
 import RelatedDoiDetail from './../../components/RelatedDoiDetail'
 import { connect } from 'react-redux';
 import NetworkDiagram from './../../components/NetworkDiagram'
+import { Typography } from '@material-ui/core';
 
 const ArticleDetailsPage = (props) => {
   const { relatedDoiState, currentOriginalPaper } = props;
@@ -32,9 +33,13 @@ const ArticleDetailsPage = (props) => {
   nodes.push(originalPaper);
   return (
     <div>
-      <RelatedDoisList />
-      <NetworkDiagram nodes={nodes} links={links} />
-      <RelatedDoiDetail />
+      <Typography>
+        <RelatedDoisList />
+        <RelatedDoiDetail />
+      </Typography>
+      <Typography>
+        <NetworkDiagram nodes={nodes} links={links} />
+      </Typography>
     </div>
   )
 };

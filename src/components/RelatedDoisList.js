@@ -178,7 +178,7 @@ const RelatedDoisList = (props) => {
                 <div className={classes.drawerHeader}>
                   <Button onClick= { backToSearchResult } style={{ fontSize: "12px", marginTop: "6px"}} color="primary">{`<< Back`}</Button>
                   <IconButton id="leftDirectionCloseIcon" onClick={handleDrawerClose} style={{ height: "50px", marginTop: "auto", marginBottom: "auto"}}>
-                      {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                      {theme.direction === 'ltr' ? <ChevronLeftIcon id="leftCloseListicon"/> : <ChevronRightIcon id="rightCloseListicon"/>}
                   </IconButton>
                 </div>
                 <Divider />

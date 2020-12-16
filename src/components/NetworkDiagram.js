@@ -204,9 +204,10 @@ const NetworkDiagram = (graph) => {
     let width = window.innerWidth;
     let height = window.innerHeight;
         return (
-                <svg id="networkgraph"
-                width={width} height={(height - 90)} >
-                </svg>
+  
+          <svg id="networkgraph"
+          width={width} height={(height - 90)} >
+          </svg>
         )
     }
     

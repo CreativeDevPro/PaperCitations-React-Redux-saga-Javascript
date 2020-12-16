@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     position: "absolute",
     top: "64px",
+    right: "0px",
     height: "calc(100% - 65px)",
     boxShadow: "3px 3px 20px"
   },
