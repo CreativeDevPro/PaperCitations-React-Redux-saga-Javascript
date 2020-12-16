@@ -23,6 +23,9 @@ export function* getArticleItems(action) {
             })
         )
     } catch (error) {
-        console.log(error);
+        alert('failed fetching articles');
+        yield put(
+            articlesAction.failedFetchingArticles()
+        )
     }
 }

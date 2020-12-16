@@ -41,3 +41,15 @@ export const storeDoiMetadata = (payload) => {
         payload
     }
 }
+
+export const failedFetchingArticles = () => {
+    return {
+        type: 'FAILED_FETCHING_ARTICLES',
+    }
+}
+
+export const failedFetchingRelatedPapers = () => {
+    return {
+        type: 'FAILED_FETCHING_RELATED_PAPERS'
+    }
+}

@@ -53,6 +53,11 @@ export default function rootReducer (state = totalState, action) {
             return {...state, relatedDoiState: newDois}
         case 'SET_SELECTED_DOI' :
             return {...state, selectedDoi: action.payload }
+        
+        case 'FAILED_FETCHING_ARTICLES':
+            return {...state, currentPage: "Home"}
+        case 'FAILED_FETCHING_RELATED_PAPERS':
+            return {...state, currentPage: "SearchResultsPage"}
         default: 
             return state;
     }   

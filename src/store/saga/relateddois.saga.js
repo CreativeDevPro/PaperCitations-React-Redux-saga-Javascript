@@ -22,7 +22,10 @@ export function* getRelatedDois(action) {
             })
         )
     } catch (error) {
-        console.log(error);
+        alert('failed fetching papers');
+        yield put(
+            articlesAction.failedFetchingRelatedPapers()
+        )
     }
 }
 
@@ -40,6 +43,6 @@ export function* loadDoiMetadata(action) {
             })
         )
     } catch (error) {
-        console.log(error);
+        alert('failed loading metadata');
     }
 }
