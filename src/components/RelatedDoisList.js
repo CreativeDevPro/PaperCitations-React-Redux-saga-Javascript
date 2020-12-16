@@ -89,9 +89,15 @@ const RelatedDoisList = (props) => {
     loadMetaDataInfo(cited);
   }
 
-  const focusDoi = (index, doi) => {
+  const focusDoi = (index, doi, isFocusChange) => {
+    console.log('focused');
     setSelectedDoi(doi);
-    setFocusedId(index + 1);
+
+
+    if(isFocusChange === true)
+      setFocusedId(index + 1);
+    else 
+      setFocusedId(selectedId);
   }
 
   const selectItem = (id) => (event) => {
@@ -103,15 +109,20 @@ const RelatedDoisList = (props) => {
   }
 
   const handleMouseOutOfList = () => {
+    console.log('out');
     if(selectedId === 0) {
-      focusOriginalPaper();
+      focusOriginalPaper(false);
     }
     else if(selectedId > 0){
-      focusDoi(selectedId - 1, relatedDoiState[selectedId-1])
+      focusDoi(selectedId - 1, relatedDoiState[selectedId-1], false)
     }
   }
 
-  const focusOriginalPaper = () => {
+  const handleMouseOutofWidget = () => {
+    alert('abc');
+  }
+
+  const focusOriginalPaper = (isFocusChange) => {
     let selectedDoi =  {
       cited: 'original',
       creation: '',
@@ -148,7 +159,10 @@ const RelatedDoisList = (props) => {
                 }
     selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
     setSelectedDoi(selectedDoi);
-    setFocusedId(0);
+    if(isFocusChange === true)
+      setFocusedId(0);
+    else 
+      setFocusedId(selectedId);
   }
   return (
     <div>
@@ -172,9 +186,11 @@ const RelatedDoisList = (props) => {
                 </div>
                 <Divider />
        
-                <List style={{ overflowY: "auto"}} onMouseOut={() => { handleMouseOutOfList() }}>
+                <List style={{ overflowY: "auto"}} onMouseLeave={() => { handleMouseOutOfList() }}>
                   <ListItem button key="original" style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === 0 ? "rgb(232, 232, 232)" : "") }}
-                    onMouseOver={() => { focusOriginalPaper() }}
+                    // onMouseOut={() => { handleMouseOutOfList() }}
+                    onMouseEnter={() => { focusOriginalPaper(true) }}
+            
                     onClick={selectItem(0)}
                   >
                       <Card raised
@@ -219,7 +235,8 @@ const RelatedDoisList = (props) => {
                   </ListItem>
                   {relatedDoiState.map((doi, index) => (
                     <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === index + 1 ? "rgb(232, 232, 232)" : "")}} 
-                    onMouseOver={() => { focusDoi(index, doi) }}
+                    // onMouseLe={() => { handleMouseOutOfList() }}
+                    onMouseEnter={() => { focusDoi(index, doi, true) }}
                     onClick={selectItem(index + 1)}
                     >
                       <Card raised
