@@ -90,7 +90,6 @@ const RelatedDoisList = (props) => {
   }
 
   const focusDoi = (index, doi, isFocusChange) => {
-    console.log('focused');
     setSelectedDoi(doi);
 
 
@@ -109,17 +108,12 @@ const RelatedDoisList = (props) => {
   }
 
   const handleMouseOutOfList = () => {
-    console.log('out');
     if(selectedId === 0) {
       focusOriginalPaper(false);
     }
     else if(selectedId > 0){
       focusDoi(selectedId - 1, relatedDoiState[selectedId-1], false)
     }
-  }
-
-  const handleMouseOutofWidget = () => {
-    alert('abc');
   }
 
   const focusOriginalPaper = (isFocusChange) => {
