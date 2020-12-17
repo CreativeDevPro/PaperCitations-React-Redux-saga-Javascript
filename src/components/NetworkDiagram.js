@@ -5,14 +5,14 @@ import $ from "jquery";
 import * as d3 from "d3";
 
 
-const NetworkDiagram = (graph) => {
+const NetworkDiagram = (props) => {
 
     // const {setSelectedDoi} = props;
-
+    const {currentOriginalPaper, relatedDoiState, setSelectedDoi} = props;
     useEffect(() => {
         $(window).on("resize", function () {
           initDiagram()
-          drawDiagram(graph)
+          drawDiagram(props)
         }).trigger("resize");
       })
     
@@ -36,6 +36,45 @@ const NetworkDiagram = (graph) => {
           .attr("orient", 'auto')
           .append('path')
           .attr("d", 'M 0 0 6 3 0 6 1.5 3');
+      }
+
+      function focusOriginalPaper() {
+        let selectedDoi =  {
+          cited: 'original',
+          creation: '',
+          oci: '',
+          author_sc: '',
+          citing: '',
+          journal_sc: '',
+          timespan: '',
+          containMetaData: false,
+          metaData: {
+              citation_count: '',
+              doi: '',
+              year: '',
+              source_id: '',
+              page: '',
+              reference: '',
+              author: '',
+              volume: '',
+              source_title: '',
+              issue: '',
+              oa_link: '',
+              citation: '',
+              title: '',
+              journal: '',
+          }
+        }
+        let metaData = {...selectedDoi.metaData}
+        metaData = {...metaData, 
+                      title: currentOriginalPaper.title, 
+                      doi: currentOriginalPaper.doi,
+                      year: currentOriginalPaper.year,
+                      author: currentOriginalPaper.authors,
+    
+                    }
+        selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
+        setSelectedDoi(selectedDoi);
       }
       function drawDiagram(graph) {
 
@@ -135,7 +174,16 @@ const NetworkDiagram = (graph) => {
             lables.style("opacity", o => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
-            // setSelectedDoi(d.doi)
+            console.log(d.doi);
+            relatedDoiState.map(doi => {
+              if(doi.citing == d.doi) {
+                setSelectedDoi(doi)
+              }
+            })
+            if(currentOriginalPaper.doi == d.doi) {
+              focusOriginalPaper();
+            }
+            
           })
           .on('mouseout', d => {
             circles.style("opacity", 1);
@@ -212,7 +260,11 @@ const NetworkDiagram = (graph) => {
     }
     
 
- const mapStateToProps = (state = totalState) => {
+ const mapStateToProps = (state) => {
+   return {
+    currentOriginalPaper: state.currentOriginalPaper,
+    relatedDoiState: state.relatedDoiState,
+   }
 } 
 const mapStateToDispatch=(dispatch)=>{
   return {

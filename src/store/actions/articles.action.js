@@ -28,9 +28,23 @@ export const getRelatedDois = (payload) => {
     }
 }
 
+export const getSubRelatedDois = (payload) => {
+    return {
+        type: 'GET_SUB_RELATED_DOIS',
+        payload,
+    }
+}
+
 export const storeRelatedDois = (payload) => {
     return {
         type: 'STORE_RELATED_DOIS',
+        payload,
+    }
+}
+
+export const storeSubRelatedDois = (payload) => {
+    return {
+        type: 'STORE_SUB_RELATED_DOIS',
         payload,
     }
 }
