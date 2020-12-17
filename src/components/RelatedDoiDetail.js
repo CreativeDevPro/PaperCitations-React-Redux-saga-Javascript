@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RelatedDoiDetail = (props) => {
-  const { selectedDoi } = props;
+  const { selectedDoi, relatedDoiState,  loadMetaDataInfo, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus} = props;
 
   const [open, setOpen] = useState(true);
   const classes = useStyles();
@@ -79,6 +79,30 @@ const RelatedDoiDetail = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const buildGraph = () => (event) => {
+    // let originalPaper = {
+    //   title: 
+    // }
+    loadMetaDataInfo(props.selectedDoi.citing);
+    relatedDoiState.map ( citation => {
+      if(citation.citing == props.selectedDoi.citing) {
+        let originalPaper = {
+          title: citation.metaData.title,
+          citations: citation.metaData.citation,
+          year: citation.metaData.year,
+          journal: '',
+          locator: '',
+          authors: citation.metaData.author,
+          url: '',
+          doi: citation.citing,
+        }
+        setCurrentOriginalPaper( originalPaper );
+        setCurrentPage('RelatedDoisLoadingPage');
+        setFetchingRelatedDoisStatus();
+      }
+    })
+  }
+
   return (
     <div>
 
@@ -151,7 +175,7 @@ const RelatedDoiDetail = (props) => {
                       <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
                         {
                           !(props.selectedDoi.cited === 'original') ?
-                          <Button variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
+                          <Button onClick={buildGraph()} variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
                               Build Graph
                           </Button> :
                           "Original Paper"
@@ -174,15 +198,28 @@ const RelatedDoiDetail = (props) => {
 const mapStateToProps=(state = totalState)=>{
 
   return {
+    relatedDoiState: state.relatedDoiState,
     selectedDoi: state.selectedDoi,
   }
 }
 
 const mapStateToDispatch=(dispatch)=>{
   return {
+    loadMetaDataInfo: (payload) => {
+      dispatch({type:'LOAD_METADATA_OF_DOI', payload});
+    },
     getArticles:(input, extraParams)=>{
       dispatch({type:'GET_ALL_ARTICLES',input, extraParams});
     },
+    setCurrentPage: (payload) => {
+      dispatch({type:'SET_CURRENT_PAGE', payload});
+    },
+    setCurrentOriginalPaper: (payload) => {
+      dispatch({type:'SET_CURRENT_ORIGINAL_PAPER', payload});
+    },
+    setFetchingRelatedDoisStatus: (payload) => {
+      dispatch({type:'SET_FETCHING_RELATED_DOIS_STATUS', payload});
+    }
   }
 }
 RelatedDoiDetail.propTypes = {};
