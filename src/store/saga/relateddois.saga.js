@@ -40,6 +40,12 @@ export function* getRelatedDois(action) {
             })
         )
 
+        yield put(
+            articlesAction.storeRealtedDoisForGraph({
+                relatedDois: data,
+            })
+        )
+
         // data.map(citation => {
         //      put (
         //         articlesAction.getSubRelatedDois({

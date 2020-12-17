@@ -6,10 +6,10 @@ import NetworkDiagram from './../../components/NetworkDiagram'
 import { Typography } from '@material-ui/core';
 
 const ArticleDetailsPage = (props) => {
-  const { relatedDoiState, currentOriginalPaper } = props;
+  const { relatedDoiForGraphState, currentOriginalPaper } = props;
   let links = []
   let nodes = []
-  relatedDoiState.map(citation => {
+  relatedDoiForGraphState.map(citation => {
     links = [...links, {
       "source": currentOriginalPaper.doi,
       "target": citation.citing,
@@ -31,6 +31,7 @@ const ArticleDetailsPage = (props) => {
     "authors": "",
   }
   nodes.push(originalPaper);
+  
   return (
     <div>
       <Typography>
@@ -47,7 +48,7 @@ const ArticleDetailsPage = (props) => {
 const mapStateToProps = (state) => {
 
   return {
-    relatedDoiState: state.relatedDoiState,
+    relatedDoiForGraphState: state.relatedDoiForGraphState,
     currentOriginalPaper: state.currentOriginalPaper,
   }
 }

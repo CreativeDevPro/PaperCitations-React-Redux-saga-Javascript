@@ -1,6 +1,7 @@
 export const totalState = {
     articlesState: [],
     relatedDoiState: [],
+    relatedDoiForGraphState: [],
     selectedDoi : {
         cited: '',
         creation: '',

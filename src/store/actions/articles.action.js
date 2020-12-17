@@ -42,6 +42,12 @@ export const storeRelatedDois = (payload) => {
     }
 }
 
+export const storeRealtedDoisForGraph = (payload) => {
+    return {
+        type: 'STORE_RELATED_DOIS_FOR_GRAPH',
+        payload,
+    }
+}
 export const storeSubRelatedDois = (payload) => {
     return {
         type: 'STORE_SUB_RELATED_DOIS',

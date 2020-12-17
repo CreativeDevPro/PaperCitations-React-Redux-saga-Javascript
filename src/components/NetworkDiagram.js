@@ -8,7 +8,7 @@ import * as d3 from "d3";
 const NetworkDiagram = (props) => {
 
     // const {setSelectedDoi} = props;
-    const {currentOriginalPaper, relatedDoiState, setSelectedDoi} = props;
+    const {relatedDoiForGraphState, currentOriginalPaper, setSelectedDoi} = props;
     useEffect(() => {
         $(window).on("resize", function () {
           initDiagram()
@@ -175,7 +175,7 @@ const NetworkDiagram = (props) => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
             console.log(d.doi);
-            relatedDoiState.map(doi => {
+            relatedDoiForGraphState.map(doi => {
               if(doi.citing == d.doi) {
                 setSelectedDoi(doi)
               }
@@ -263,7 +263,7 @@ const NetworkDiagram = (props) => {
  const mapStateToProps = (state) => {
    return {
     currentOriginalPaper: state.currentOriginalPaper,
-    relatedDoiState: state.relatedDoiState,
+    relatedDoiForGraphState: state.relatedDoiForGraphState,
    }
 } 
 const mapStateToDispatch=(dispatch)=>{
