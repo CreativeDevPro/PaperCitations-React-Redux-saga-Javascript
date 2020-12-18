@@ -10,6 +10,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from "@material-ui/core/Button";
 import { parseArticle } from '../utils';
+import Link from '@material-ui/core/Link';
 
 const drawerWidth = "calc(20%)";
 
@@ -153,7 +154,7 @@ const RelatedDoiDetail = (props) => {
                   selectedDoi == 'original' ?
                   <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                     <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                      { currentOriginalPaper.title}
+                    <Link href={`http://dx.doi.org/${currentOriginalPaper.doi}`} variant="h6" color="inherit" target="_blank" rel="opener">{ currentOriginalPaper.title}</Link>
                     </Typography>
                     <Typography
                       color="textSecondary"
@@ -190,7 +191,7 @@ const RelatedDoiDetail = (props) => {
                     currentDoi.containMetaData ?
                       <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                         <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                          { currentDoi.metaData.title}
+                        <Link href={`http://dx.doi.org/${currentDoi.metaData.doi}`} variant="h6" color="inherit" target="_blank" rel="opener">{ currentDoi.metaData.title}</Link>
                         </Typography>
                         
                         <Typography
@@ -226,7 +227,7 @@ const RelatedDoiDetail = (props) => {
                     :
                       <div style={{ paddingTop: "5px", paddingLeft: "8px"}}>
                         <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                          {currentDoi.citing}
+                        <Link href={`http://dx.doi.org/${currentDoi.citing}`} variant="h6" color="inherit" target="_blank" rel="opener">{currentDoi.citing}</Link>
                         </Typography>
                         <Typography
                           color="textSecondary"

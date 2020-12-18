@@ -212,7 +212,7 @@ const RelatedDoisList = (props) => {
                                 color="textSecondary"
                                 style={{ overflow: "hidden", textOverflow: "ellipsis", fontSize: "13px", height: "22px", WebkitLineClamp: "1" ,display: "-webkit-box", WebkitBoxOrient: "vertical"}}
                             >
-                                {doi.containMetaData ? doi.metaData.doi : doi.author}           
+                                {doi.containMetaData ? doi.metaData.author : doi.author}           
                             </Typography>
                             <Typography
                                 color="textSecondary"
