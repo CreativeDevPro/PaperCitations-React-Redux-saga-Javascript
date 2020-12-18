@@ -13,14 +13,14 @@ const ArticleDetailsPage = (props) => {
     if(citation.cited == currentOriginalPaper.doi)
     {
       links = [...links, {
-        "source": currentOriginalPaper.doi,
+        "source": citation.cited,
         "target": citation.citing,
         "value": 1
       }]
     }
     else {
       links = [...links, {
-        "source": currentOriginalPaper.doi,
+        "source": citation.cited,
         "target": citation.citing,
         "value": 2
       }]
@@ -28,7 +28,7 @@ const ArticleDetailsPage = (props) => {
     
     nodes = [...nodes, {
       "id": citation.citing,
-      "year": citation.year,
+      "year": citation.creation.substr(0, 4),
       "doi": citation.citing,
       "title": citation.title,
       "authors": "",
@@ -42,7 +42,6 @@ const ArticleDetailsPage = (props) => {
     "authors": "",
   }
   nodes.push(originalPaper);
-  console.log(links);
   
   return (
     <div>

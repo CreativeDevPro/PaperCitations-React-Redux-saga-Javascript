@@ -199,6 +199,7 @@ const NetworkDiagram = (props) => {
         var lables = node.append("text")
           .attr("font-size",7)
           .text(function (d) {
+           
             return (d.authors && d.authors.length > 0 ? d.authors.split(',')[0] + ", " : "") + d.year;
           })
           .attr('text-anchor', 'middle')

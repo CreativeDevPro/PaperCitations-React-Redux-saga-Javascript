@@ -20,6 +20,8 @@ const RelatedDoisLoadingPage = (props) => {
             function(value) {
               totaldata = [...totaldata, ...value.data]
               check ++;
+              console.log(totaldata);
+              console.log(check);
               if(check == maindata.length) {
                 storeRelatedDois(totaldata);
                 storeRelatedDoisForGraph(totaldata);
@@ -31,6 +33,10 @@ const RelatedDoisLoadingPage = (props) => {
             
           )
         })
+        if(maindata.length == 0) {
+          storeRelatedDois(totaldata);
+          storeRelatedDoisForGraph(totaldata);
+        }
       },
       function(error) {
         failedFetchingPapers();
