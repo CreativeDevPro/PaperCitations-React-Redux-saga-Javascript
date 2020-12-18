@@ -9,6 +9,8 @@ const ArticleDetailsPage = (props) => {
   const { relatedDoiForGraphState, currentOriginalPaper } = props;
   let links = []
   let nodes = []
+  console.log('graph state!!!!!!!!!!!!!!');
+  console.log(relatedDoiForGraphState);
   relatedDoiForGraphState.map(citation => {
     if(citation.cited == currentOriginalPaper.doi)
     {
@@ -41,8 +43,12 @@ const ArticleDetailsPage = (props) => {
     "title": currentOriginalPaper.title,
     "authors": "",
   }
+  console.log('original paper');
+  console.log(originalPaper);
   nodes.push(originalPaper);
   
+  console.log(nodes);
+  console.log(links);
   return (
     <div>
       <Typography>

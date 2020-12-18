@@ -35,9 +35,9 @@ export default function rootReducer (state = totalState, action) {
                 }}
                 return newDoi;
             })
-            return { ...state, relatedDoiState: relatedDois, onFetchingRelatedDois: false}
+            return { ...state, relatedDoiState: relatedDois}
         case 'STORE_RELATED_DOIS_FOR_GRAPH' :
-                return { ...state, relatedDoiForGraphState: action.payload}
+                return { ...state, relatedDoiForGraphState: action.payload, onFetchingRelatedDois: false}
         case 'STORE_SUB_RELATED_DOIS' :
             let relatedDois1 = action.payload.relatedDois.map (doi => {
                 let newDoi = {...doi, containMetaData: false }

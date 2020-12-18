@@ -9,8 +9,9 @@ const RelatedDoisLoadingPage = (props) => {
   let maindata;
   let totaldata;
   let check = 0;
-  useEffect(() => {
+  // useEffect(() => {
     // getRelatedDois(currentOriginalPaper.doi);
+    console.log('initiated');
     DoiService.endpoint_get_related_dois(currentOriginalPaper.doi).then (
       function(value) {
         maindata = value.data;
@@ -34,6 +35,7 @@ const RelatedDoisLoadingPage = (props) => {
           )
         })
         if(maindata.length == 0) {
+          
           storeRelatedDois(totaldata);
           storeRelatedDoisForGraph(totaldata);
         }
@@ -43,7 +45,7 @@ const RelatedDoisLoadingPage = (props) => {
       }
     )
     
-  }, []);
+  // }, []);
 
 
   if(onFetchingRelatedDois === false) {
