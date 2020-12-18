@@ -172,7 +172,7 @@ const RelatedDoiDetail = (props) => {
                       className={classes.lineHeight1_5em}
                       style={{ fontSize: "14px" }}
                     >
-                      {currentOriginalPaper.year.substr(0, 4)}
+                      {currentOriginalPaper.year}
                     </Typography>
                     <Typography
                       color="textSecondary"

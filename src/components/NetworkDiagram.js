@@ -79,9 +79,6 @@ const NetworkDiagram = (props) => {
             circles.style("opacity", o => {
               return (o.doi == d.source.doi || o.doi == d.target.doi) ? 1 : 0.1
             });
-            fullCircles.style("opacity", o => {
-              return (o.doi == d.source.doi || o.doi == d.target.doi) ? 0.3 : 0.1
-            });
             link.style("stroke-opacity", o => {
               return (o.source == d.source && o.target == d.target) ? 1 : 0.1
             });
@@ -92,10 +89,10 @@ const NetworkDiagram = (props) => {
           .on('mouseout', d => {
             circles.style("opacity", 1);
             link.style("stroke-opacity", 1);
-            fullCircles.style("opacity", 0.3);
+
             lables.style("opacity", 1);
           })
-          .attr("marker-end", "url(#Triangle)");
+          //.attr("marker-end", "url(#Triangle)");
     
         // nodes
         svg.append("g")
@@ -105,18 +102,18 @@ const NetworkDiagram = (props) => {
           .enter()
           .append("g");
     
-          var node = d3.select("g.nodes")
+        var node = d3.select("g.nodes")
           .selectAll("g");
-    
-          var fullCircles = node.append("circle")
-          .attr("r", d => d.nodeLevel==0? 15 : 8)
-          .attr("fill", function (d) { 
-            return d.nodeLevel==0?"rgba(56,142,60, 0.9)":d.nodeLevel==1?"rgba(56,142,60, 0.6)":"rgba(56,142,60, 0.3)"; })
     
         var circles = node.append("circle")
           .attr("r", d => d.nodeLevel==0? 9.5 : 3.5)
+          .attr("stroke-width", 4.5)
+          .attr("stroke", function (d) {
+            return d.nodeLevel==0?"rgba(56,142,60, 0.9)":d.nodeLevel==1?"rgba(56,142,60, 0.6)":"rgba(56,142,60, 0.3)"; 
+          })
           .attr("fill", function (d) {
-            return d.nodeLevel==0?"rgba(56,142,60, 1)":d.nodeLevel==1?"rgba(56,142,60, 0.7)":"rgba(56,142,60, 0.4)"; })
+            return d.nodeLevel==0?"rgba(56,142,60, 1)":d.nodeLevel==1?"rgba(56,142,60, 0.7)":"rgba(56,142,60, 0.4)";
+          })
           .on("mouseover", function (d) {
             let highlightDOIs = [d.doi];
             for (let p of graph.links) {
@@ -133,13 +130,10 @@ const NetworkDiagram = (props) => {
             circles.style("opacity", o => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
-            fullCircles.style("opacity", o => {
-              return highlightDOIs.indexOf(o.doi) > -1 ? 0.3 : 0.1
-            });
             lables.style("opacity", o => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
-            console.log(d.doi);
+            //console.log(d.doi);
             if(currentOriginalPaper.doi == d.doi) {
               setSelectedDoi('original');
             }
@@ -150,7 +144,7 @@ const NetworkDiagram = (props) => {
           .on('mouseout', d => {
             circles.style("opacity", 1);
             link.style("stroke-opacity", 1);
-            fullCircles.style("opacity", 0.3);
+
             lables.style("opacity", 1);
           })
           .call(d3.drag()
@@ -166,7 +160,7 @@ const NetworkDiagram = (props) => {
           })
           .attr('text-anchor', 'middle')
           .attr('x', 0)
-          .attr('y', -20);
+          .attr('y', -10);
     
         node.append("title")
           .attr("font-size",7)

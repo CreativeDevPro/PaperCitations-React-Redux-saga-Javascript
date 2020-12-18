@@ -19,6 +19,10 @@ const RelatedDoisLoadingPage = (props) => {
         maindata.map(citation => {
           DoiService.endpoint_get_related_dois(citation.citing).then (
             function(value) {
+              value.data.map(citation => {
+                totaldata = totaldata.filter(datacitation => datacitation.citing != citation.citing)
+              })
+              
               totaldata = [...totaldata, ...value.data]
               check ++;
               if(check == maindata.length) {

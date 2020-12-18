@@ -10,29 +10,29 @@ const ArticleDetailsPage = (props) => {
   let links = []
   let nodes = []
   relatedDoiForGraphState.map(citation => {
-    if(citation.cited == currentOriginalPaper.doi)
-    {
-      links = [...links, {
-        "source": citation.cited,
-        "target": citation.citing,
-        "value": 1
-      }]
-    }
-    else {
-      links = [...links, {
-        "source": citation.cited,
-        "target": citation.citing,
-        "value": 2
-      }]
-    }
-    
-    nodes = [...nodes, {
-      "id": citation.citing,
-      "year": citation.creation.substr(0, 4),
-      "doi": citation.citing,
-      "title": citation.title,
-      "authors": "",
+    links = [...links, {
+      "source": citation.cited,
+      "target": citation.citing,
+      "value": 1
     }]
+
+    if (nodes.filter(node => node.doi === citation.citing).length === 0) {
+      let nodeLevel = 0;
+      if (citation.cited == currentOriginalPaper.doi) {
+        nodeLevel = 1;
+      } else {
+        nodeLevel = 2;
+      }
+
+      nodes = [...nodes, {
+        "id": citation.citing,
+        "year": citation.creation.substr(0, 4),
+        "doi": citation.citing,
+        "title": citation.title,
+        "authors": "",
+        "nodeLevel": nodeLevel
+      }]
+    }
   })
   let originalPaper = {
     "id": currentOriginalPaper.doi,
@@ -40,11 +40,12 @@ const ArticleDetailsPage = (props) => {
     "doi": currentOriginalPaper.doi,
     "title": currentOriginalPaper.title,
     "authors": "",
+    "nodeLevel": 0
   }
   console.log('original paper');
   console.log(originalPaper);
   nodes.push(originalPaper);
-  
+
   console.log(nodes);
   console.log(links);
   return (

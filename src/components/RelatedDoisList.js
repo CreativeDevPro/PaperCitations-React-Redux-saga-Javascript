@@ -16,6 +16,8 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from '@material-ui/core/Link';
 import { FilterNone } from '@material-ui/icons';
+import $ from "jquery";
+import * as d3 from "d3";
 
 const drawerWidth = "calc(20%)";
 
@@ -126,6 +128,20 @@ const RelatedDoisList = (props) => {
     else
       setFocusedId(selectedId);
   }
+
+  relatedDoiState.map((doi, index) => {
+    if(index == loadingMetaDoiId && doi.containMetaData == true) {
+      setLoadingMetaDoiId(-1);
+      let node = d3.select("g.nodes")
+        .selectAll("g")
+        .filter(d => d.doi == doi.citing);
+
+      node.select("text")
+        .text(d => (doi.metaData.author.length > 0 ? doi.metaData.author.split(',')[0] + ", " : "") + d.year);
+      node.select("title")
+        .text(doi.metaData.title);
+    }
+  })
   return (
     <div>
 
@@ -197,7 +213,7 @@ const RelatedDoisList = (props) => {
                   {relatedDoiState.map((doi, index) => (
                     
                     <ListItem button key={doi.citing} style={{ paddingLeft: "0px", paddingRight: "0px", borderBottom: "1px solid lightgray", backgroundColor: ( selectedId === index + 1 ? "rgb(232, 232, 232)" : "")}} 
-                    onMouseEnter={() => { focusDoi(index, doi, true);articleslistMouseEvent(doi); }}
+                    onMouseEnter={() => { focusDoi(index, doi, true);articleslistMouseEvent(doi, props); }}
                     onClick={selectItem(index + 1)}
                     >
                       <Card raised
@@ -287,7 +303,7 @@ RelatedDoisList.propTypes = {};
 
 RelatedDoisList.defaultProps = {};
 
-function articleslistMouseEvent(overedArticle){
+function articleslistMouseEvent(overedArticle, graph){
   var isConnectDois = new Array();
   if (document.getElementsByTagName('line').length > 0) {
       for (let item of document.getElementsByTagName('line')) {
@@ -314,6 +330,10 @@ function isConnected(isConnectDois){
   for (let item of document.getElementsByTagName('circle')) {
 
       for (let doi of isConnectDois) {
+          if (!item.__data__) { // loading icon
+            //console.log(item);
+            continue;
+          }
           if (doi == item.__data__.doi) {
               item.style.opacity = 1
           }
