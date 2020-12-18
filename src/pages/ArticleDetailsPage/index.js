@@ -10,11 +10,22 @@ const ArticleDetailsPage = (props) => {
   let links = []
   let nodes = []
   relatedDoiForGraphState.map(citation => {
-    links = [...links, {
-      "source": currentOriginalPaper.doi,
-      "target": citation.citing,
-      "value": 1
-    }]
+    if(citation.cited == currentOriginalPaper.doi)
+    {
+      links = [...links, {
+        "source": currentOriginalPaper.doi,
+        "target": citation.citing,
+        "value": 1
+      }]
+    }
+    else {
+      links = [...links, {
+        "source": currentOriginalPaper.doi,
+        "target": citation.citing,
+        "value": 2
+      }]
+    }
+    
     nodes = [...nodes, {
       "id": citation.citing,
       "year": citation.year,
@@ -31,6 +42,7 @@ const ArticleDetailsPage = (props) => {
     "authors": "",
   }
   nodes.push(originalPaper);
+  console.log(links);
   
   return (
     <div>
