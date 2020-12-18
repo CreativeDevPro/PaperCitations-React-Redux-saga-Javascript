@@ -72,7 +72,6 @@ const Header = (props) => {
   const handleKeyUp = (e) => {
     if(e.nativeEvent.keyCode === 13) {
       if(inputValue !== '') {
-        console.log(inputValue);
         setSearchArticleInputValue(inputValue);
         // history.push("/articles/loading");
         setCurrentPage('ArticlesLoading');

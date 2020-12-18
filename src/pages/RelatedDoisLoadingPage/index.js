@@ -11,7 +11,6 @@ const RelatedDoisLoadingPage = (props) => {
   let check = 0;
   // useEffect(() => {
     // getRelatedDois(currentOriginalPaper.doi);
-    console.log('initiated');
     DoiService.endpoint_get_related_dois(currentOriginalPaper.doi).then (
       function(value) {
         maindata = value.data;

@@ -133,7 +133,7 @@ const NetworkDiagram = (props) => {
             lables.style("opacity", o => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
-            //console.log(d.doi);
+  
             if(currentOriginalPaper.doi == d.doi) {
               setSelectedDoi('original');
             }

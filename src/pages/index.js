@@ -9,7 +9,6 @@ import RelatedDoisLoadingPage from './RelatedDoisLoadingPage'
 
 const  Pages = (props) => {
   const { currentPage } = props;
-  console.log(currentPage);
   return (
     <div>
         <nav>

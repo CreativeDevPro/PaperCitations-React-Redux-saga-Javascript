@@ -14,8 +14,6 @@ export default function rootReducer (state = totalState, action) {
         case 'SET_FETCHING_ARTICLES_STATUS' :
             return { ...state, onFetchingArticles: true }
         case 'STORE_RELATED_DOIS' :
-            console.log('reducer!!!!!!')
-            console.log(action.payload);
             let relatedDois = action.payload.map (doi => {
                 let newDoi = {...doi, containMetaData: false }
                 newDoi = {...newDoi, metaData: {

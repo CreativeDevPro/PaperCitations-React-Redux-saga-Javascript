@@ -82,23 +82,8 @@ const RelatedDoiDetail = (props) => {
     setOpen(false);
   };
   const buildGraph = () =>(event) => {
-    // let originalPaper = {
-    //   title: 
-    // }
-    // console.log(selectedDoi);
-    loadMetaDataInfoForGraph(selectedDoi);
-    
 
-    
-    // articlesState.map(article => {
-    //   let parsedArticle = parseArticle(article);
-    //   if(parsedArticle.doi == selectedDoi) {
-    //       setCurrentOriginalPaper(article);
-    //       setSelectedDoi('original');
-    //       setCurrentPage('RelatedDoisLoadingPage');
-    //       setFetchingRelatedDoisStatus();
-    //   }
-    // })
+    loadMetaDataInfoForGraph(selectedDoi);
     
   }
 

@@ -42,12 +42,9 @@ const ArticleDetailsPage = (props) => {
     "authors": "",
     "nodeLevel": 0
   }
-  console.log('original paper');
-  console.log(originalPaper);
+
   nodes.push(originalPaper);
 
-  console.log(nodes);
-  console.log(links);
   return (
     <div>
       <Typography>

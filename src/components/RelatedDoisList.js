@@ -331,7 +331,7 @@ function isConnected(isConnectDois){
 
       for (let doi of isConnectDois) {
           if (!item.__data__) { // loading icon
-            //console.log(item);
+
             continue;
           }
           if (doi == item.__data__.doi) {

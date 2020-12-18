@@ -54,8 +54,6 @@ const SearchResultsPage = (props) => {
       currentOffset: curOffset,
     })
   }
-  console.log('why')
-  console.log(onFetchingArticles);
   return (
     <div>
       

@@ -39,17 +39,6 @@ export const AxiosService = (function () {
         })
         return data;
           
-        
-        // axios.get(endpoint, addHeaders(userConfig))
-        // .then(function(response) {
-        //     strr.push(response.data);
-        // })
-
-        // .catch(function(error){
-        //     console.log(error);
-        // });
-        // return strr;
-        // return axios.get(endpoint, addHeaders(userConfig)).then(response => response.data);
     }
     return {
         setAuthorizationToken,
