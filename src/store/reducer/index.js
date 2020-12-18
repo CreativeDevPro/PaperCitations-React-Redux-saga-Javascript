@@ -37,7 +37,7 @@ export default function rootReducer (state = totalState, action) {
             })
             return { ...state, relatedDoiState: relatedDois}
         case 'STORE_RELATED_DOIS_FOR_GRAPH' :
-                return { ...state, relatedDoiForGraphState: action.payload, onFetchingRelatedDois: false}
+                return { ...state, relatedDoiForGraphState: action.payload, onFetchingRelatedDois: false, fetchingMetaDataCheck: false}
         case 'STORE_SUB_RELATED_DOIS' :
             let relatedDois1 = action.payload.relatedDois.map (doi => {
                 let newDoi = {...doi, containMetaData: false }
@@ -58,11 +58,9 @@ export default function rootReducer (state = totalState, action) {
                 }}
                 return newDoi;
             })
-            console.log('tested');
-            console.log(relatedDois);
+
             let totalRelatedDois = [...state.relatedDoiState]
             totalRelatedDois = [...totalRelatedDois, ...relatedDois1]
-            console.log(totalRelatedDois);
             return { ...state, relatedDoiState: totalRelatedDois, onFetchingRelatedDois: false}
         case 'SET_CURRENT_ORIGINAL_PAPER' :
             return {...state, currentOriginalPaper: action.payload}
@@ -81,6 +79,19 @@ export default function rootReducer (state = totalState, action) {
                 }
             })
             return {...state, relatedDoiState: newDois}
+        case 'STORE_DOI_METADATA_FOR_GRAPH' :
+            let relatedDoisData1 = [...state.relatedDoiState];
+            let newDois1 = [];
+            newDois1 = relatedDoisData1.map(doi => {
+                if(doi.citing === action.payload.citing) {
+                    let temp = {...doi, containMetaData: true, metaData: action.payload.metaData[0] }
+                    return temp;
+                }
+                else {
+                    return doi;
+                }
+            })
+            return {...state, relatedDoiState: newDois1, fetchingMetaDataCheck: true}
         case 'SET_SELECTED_DOI' :
             return {...state, selectedDoi: action.payload }
         

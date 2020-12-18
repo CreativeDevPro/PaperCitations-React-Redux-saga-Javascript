@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from "@material-ui/core/Button";
+import { parseArticle } from '../utils';
 
 const drawerWidth = "calc(20%)";
 
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RelatedDoiDetail = (props) => {
-  const { selectedDoi, relatedDoiState,  currentOriginalPaper, loadMetaDataInfo, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus} = props;
+  const { selectedDoi, relatedDoiState,  currentOriginalPaper, articlesState, fetchingMetaDataCheck, loadMetaDataInfo, loadMetaDataInfoForGraph, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus, setSelectedDoi} = props;
 
   const [open, setOpen] = useState(true);
   const classes = useStyles();
@@ -79,29 +80,45 @@ const RelatedDoiDetail = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const buildGraph = () => async(event) => {
+  const buildGraph = () =>(event) => {
     // let originalPaper = {
     //   title: 
     // }
-    // await loadMetaDataInfo(props.selectedDoi.citing);
-    // relatedDoiState.map ( citation => {
-    //   if(citation.citing == props.selectedDoi.citing) {
-    //     let originalPaper = {
-    //       title: citation.metaData.title,
-    //       citations: citation.metaData.citation,
-    //       year: citation.metaData.year,
-    //       journal: '',
-    //       locator: '',
-    //       authors: citation.metaData.author,
-    //       url: '',
-    //       doi: citation.citing,
-    //     }
-    //     setCurrentOriginalPaper( originalPaper );
-    //     setCurrentPage('RelatedDoisLoadingPage');
-    //     setFetchingRelatedDoisStatus();
+    // console.log(selectedDoi);
+    loadMetaDataInfoForGraph(selectedDoi);
+    
+
+    
+    // articlesState.map(article => {
+    //   let parsedArticle = parseArticle(article);
+    //   if(parsedArticle.doi == selectedDoi) {
+    //       setCurrentOriginalPaper(article);
+    //       setSelectedDoi('original');
+    //       setCurrentPage('RelatedDoisLoadingPage');
+    //       setFetchingRelatedDoisStatus();
     //   }
     // })
+    
   }
+
+  relatedDoiState.map ( citation => {
+    if(citation.citing == selectedDoi && fetchingMetaDataCheck == true) {
+      let originalPaper = {
+        title: citation.metaData.title,
+        citations: citation.metaData.citation,
+        year: citation.metaData.year,
+        journal: '',
+        locator: '',
+        authors: citation.metaData.author,
+        url: '',
+        doi: citation.citing,
+      }
+      setCurrentOriginalPaper( originalPaper );
+      setSelectedDoi('original');
+      setCurrentPage('RelatedDoisLoadingPage');
+      setFetchingRelatedDoisStatus();
+    }
+  })
 
   let currentDoi;
   relatedDoiState.map(doi => {
@@ -256,6 +273,8 @@ const mapStateToProps=(state = totalState)=>{
     relatedDoiState: state.relatedDoiState,
     selectedDoi: state.selectedDoi,
     currentOriginalPaper: state.currentOriginalPaper,
+    articlesState: state.articlesState,
+    fetchingMetaDataCheck: state.fetchingMetaDataCheck,
   }
 }
 
@@ -263,6 +282,9 @@ const mapStateToDispatch=(dispatch)=>{
   return {
     loadMetaDataInfo: (payload) => {
       dispatch({type:'LOAD_METADATA_OF_DOI', payload});
+    },
+    loadMetaDataInfoForGraph: (payload) => {
+      dispatch({type:'LOAD_METADATA_OF_DOI_FOR_GRAPH', payload});
     },
     getArticles:(input, extraParams)=>{
       dispatch({type:'GET_ALL_ARTICLES',input, extraParams});
@@ -275,6 +297,9 @@ const mapStateToDispatch=(dispatch)=>{
     },
     setFetchingRelatedDoisStatus: (payload) => {
       dispatch({type:'SET_FETCHING_RELATED_DOIS_STATUS', payload});
+    },
+    setSelectedDoi: (payload) => {
+      dispatch({type:'SET_SELECTED_DOI', payload});
     }
   }
 }

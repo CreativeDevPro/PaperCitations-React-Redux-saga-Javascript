@@ -62,6 +62,13 @@ export const storeDoiMetadata = (payload) => {
     }
 }
 
+export const storeDoiMetadataForGraph = (payload) => {
+    return {
+        type: 'STORE_DOI_METADATA_FOR_GRAPH',
+        payload
+    }
+}
+
 export const failedFetchingArticles = () => {
     return {
         type: 'FAILED_FETCHING_ARTICLES',

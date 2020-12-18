@@ -21,8 +21,6 @@ const RelatedDoisLoadingPage = (props) => {
             function(value) {
               totaldata = [...totaldata, ...value.data]
               check ++;
-              console.log(totaldata);
-              console.log(check);
               if(check == maindata.length) {
                 storeRelatedDois(totaldata);
                 storeRelatedDoisForGraph(totaldata);

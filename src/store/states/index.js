@@ -37,6 +37,7 @@ export const totalState = {
     totalResults: 0,
     currentPage: "Home",
     currentOriginalPaper: {},
+    fetchingMetaDataCheck: false,
 }
 
 // export default rootState;
