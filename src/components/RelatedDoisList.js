@@ -93,7 +93,7 @@ const RelatedDoisList = (props) => {
   }
 
   const focusDoi = (index, doi, isFocusChange) => {
-    setSelectedDoi(doi);
+    setSelectedDoi(doi.citing);
 
 
     if(isFocusChange === true)
@@ -120,42 +120,42 @@ const RelatedDoisList = (props) => {
   }
 
   const focusOriginalPaper = (isFocusChange) => {
-    let selectedDoi =  {
-      cited: 'original',
-      creation: '',
-      oci: '',
-      author_sc: '',
-      citing: '',
-      journal_sc: '',
-      timespan: '',
-      containMetaData: false,
-      metaData: {
-          citation_count: '',
-          doi: '',
-          year: '',
-          source_id: '',
-          page: '',
-          reference: '',
-          author: '',
-          volume: '',
-          source_title: '',
-          issue: '',
-          oa_link: '',
-          citation: '',
-          title: '',
-          journal: '',
-      }
-    }
-    let metaData = {...selectedDoi.metaData}
-    metaData = {...metaData, 
-                  title: currentOriginalPaper.title, 
-                  doi: currentOriginalPaper.doi,
-                  year: currentOriginalPaper.year,
-                  author: currentOriginalPaper.authors,
+    // let selectedDoi =  {
+    //   cited: 'original',
+    //   creation: '',
+    //   oci: '',
+    //   author_sc: '',
+    //   citing: '',
+    //   journal_sc: '',
+    //   timespan: '',
+    //   containMetaData: false,
+    //   metaData: {
+    //       citation_count: '',
+    //       doi: '',
+    //       year: '',
+    //       source_id: '',
+    //       page: '',
+    //       reference: '',
+    //       author: '',
+    //       volume: '',
+    //       source_title: '',
+    //       issue: '',
+    //       oa_link: '',
+    //       citation: '',
+    //       title: '',
+    //       journal: '',
+    //   }
+    // }
+    // let metaData = {...selectedDoi.metaData}
+    // metaData = {...metaData, 
+    //               title: currentOriginalPaper.title, 
+    //               doi: currentOriginalPaper.doi,
+    //               year: currentOriginalPaper.year,
+    //               author: currentOriginalPaper.authors,
 
-                }
-    selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
-    setSelectedDoi(selectedDoi);
+    //             }
+    // selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
+    setSelectedDoi('original');
     if(isFocusChange === true)
       setFocusedId(0);
     else

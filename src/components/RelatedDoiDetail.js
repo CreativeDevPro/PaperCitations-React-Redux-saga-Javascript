@@ -83,25 +83,32 @@ const RelatedDoiDetail = (props) => {
     // let originalPaper = {
     //   title: 
     // }
-    await loadMetaDataInfo(props.selectedDoi.citing);
-    relatedDoiState.map ( citation => {
-      if(citation.citing == props.selectedDoi.citing) {
-        let originalPaper = {
-          title: citation.metaData.title,
-          citations: citation.metaData.citation,
-          year: citation.metaData.year,
-          journal: '',
-          locator: '',
-          authors: citation.metaData.author,
-          url: '',
-          doi: citation.citing,
-        }
-        setCurrentOriginalPaper( originalPaper );
-        setCurrentPage('RelatedDoisLoadingPage');
-        setFetchingRelatedDoisStatus();
-      }
-    })
+    // await loadMetaDataInfo(props.selectedDoi.citing);
+    // relatedDoiState.map ( citation => {
+    //   if(citation.citing == props.selectedDoi.citing) {
+    //     let originalPaper = {
+    //       title: citation.metaData.title,
+    //       citations: citation.metaData.citation,
+    //       year: citation.metaData.year,
+    //       journal: '',
+    //       locator: '',
+    //       authors: citation.metaData.author,
+    //       url: '',
+    //       doi: citation.citing,
+    //     }
+    //     setCurrentOriginalPaper( originalPaper );
+    //     setCurrentPage('RelatedDoisLoadingPage');
+    //     setFetchingRelatedDoisStatus();
+    //   }
+    // })
   }
+
+  let currentDoi;
+  relatedDoiState.map(doi => {
+    if(doi.citing == selectedDoi) {
+      currentDoi = doi;
+    }
+  })
 
   return (
     <div>
@@ -125,67 +132,88 @@ const RelatedDoiDetail = (props) => {
                 <div style={{display: "flex", justifyContent: "center", width: "calc(100% - 65px)"}}>Paper Info</div>
                 </div>
                 <Divider />
-                  {
-                    props.selectedDoi.containMetaData ?
-                    <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
+                {
+                  selectedDoi == 'original' ?
+                  <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                     <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                      <b>Title</b>: { props.selectedDoi.metaData.title}
+                      { currentDoi.metaData.title}
                     </Typography>
-                    <br></br>
-                    <Typography component="p" className={classes.lineHeight1_5em}>
-                      <b>Source</b>: {props.selectedDoi.metaData.source_title}
-                    </Typography>
-                    <br></br>
-                    <Typography component="p" className={classes.lineHeight1_5em}>
-                      <b>Authors</b>: {props.selectedDoi.metaData.author}
-                    </Typography>
-                    <br></br>
-                    <Typography
-                      color="textSecondary"
-                      variant="subheading"
-                      component="div"
-                      className={classes.lineHeight1_5em}
-                      style={{ fontSize: "14px" }}
-                    >
-                      <b>DOI</b>: {props.selectedDoi.metaData.doi}
-                    </Typography>
-                    <Typography
-                      color="textSecondary"
-                      variant="subheading"
-                      component="div"
-                      className={classes.lineHeight1_5em}
-                      style={{ fontSize: "14px"}}
-                    >
-                      <b>Year</b>:   {props.selectedDoi.metaData.year}
-                    </Typography> 
-                    </div> :
-                    <Typography
-                      color="textSecondary"
-                      variant="subheading"
-                      component="div"
-                      className={classes.lineHeight1_5em}
-                      style={{ fontSize: "14px", paddingLeft: "8px", paddingTop: "5px"}}
-                    >
-                      <b>DOI</b>:   {props.selectedDoi.citing}
-                      <br></br>
-                      <b>Creation</b>: {props.selectedDoi.creation}
-                    </Typography>
-                     }
-                    { props.selectedDoi.cited !== '' ?
-                      <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
-                        {
-                          !(props.selectedDoi.cited === 'original') ?
-                          <Button onClick={buildGraph()} variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
-                              Build Graph
-                          </Button> :
-                          "Original Paper"
-                        }
+                  </div>
+
+                  :
+                  <div>
+                  {
+                    currentDoi.containMetaData ?
+                      <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
+                        <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
+                          { currentDoi.metaData.title}
+                        </Typography>
                         
-                      </Typography> :
-                      ""
+                        <Typography
+                          color="textSecondary"
+                          variant="subheading"
+                          component="div"
+                          className={classes.lineHeight1_5em}
+                          style={{ fontSize: "14px" }}
+                        >
+                          {currentDoi.metaData.author}
+                        </Typography>
+
+                        <Typography
+                          color="textSecondary"
+                          variant="subheading"
+                          component="div"
+                          className={classes.lineHeight1_5em}
+                          style={{ fontSize: "14px" }}
+                        >
+                          {currentDoi.metaData.year}, {currentDoi.metaData.source_title}
+                        </Typography>
+
+                        <Typography
+                          color="textSecondary"
+                          variant="subheading"
+                          component="div"
+                          className={classes.lineHeight1_5em}
+                          style={{ fontSize: "14px" }}
+                        >
+                          {currentDoi.metaData.citation.length} Citations, {currentDoi.metaData.reference.length} References
+                        </Typography>
+                      </div> 
+                    :
+                      <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
+                        <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
+                          {currentDoi.citing}
+                        </Typography>
+                        <Typography
+                          color="textSecondary"
+                          variant="subheading"
+                          component="div"
+                          className={classes.lineHeight1_5em}
+                          style={{ fontSize: "14px", paddingLeft: "8px", paddingTop: "5px"}}
+                        >
+                          {/* <b>DOI</b>:   {currentDoi.citing}
+                          <br></br> */}
+                          {currentDoi.creation}
+                        </Typography>
+                        
+                      </div>
+                  }
+                  </div>
+                }
+ 
+                  {/* <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
+                    {
+                      !(selectedDo === 'original') ?
+                      <Button onClick={buildGraph()} variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
+                          Build Graph
+                      </Button> :
+                      "Original Paper"
                     }
-            </Drawer>
-            </div>
+                    
+                  </Typography> */}
+
+          </Drawer>
+          </div>
         :
         <IconButton onClick={handleDrawerOpen} style={{ position: "absolute", right: "0px" }}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
