@@ -18,7 +18,7 @@ const NetworkDiagram = (props) => {
     
     
     function initDiagram(){
-        $("svg *").remove();
+        $("svg#networkgraph").empty();
         let svg = d3.select("svg");
         let width = $(svg.node()).parent().width();
         let height = $(svg.node()).parent().height();
