@@ -1,13 +1,42 @@
 import {React, useEffect} from 'react';
 import { connect } from 'react-redux';
+import { DoiService } from '../../services/doi.service'
 
 const RelatedDoisLoadingPage = (props) => {
 
-  const { currentOriginalPaper, onFetchingRelatedDois, getRelatedDois,setCurrentPage } = props;
+  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois, getRelatedDois,setCurrentPage, storeRelatedDoisForGraph, failedFetchingPapers } = props;
   
-
+  let maindata;
+  let totaldata;
+  let check = 0;
   useEffect(() => {
-    getRelatedDois(currentOriginalPaper.doi);
+    // getRelatedDois(currentOriginalPaper.doi);
+    DoiService.endpoint_get_related_dois(currentOriginalPaper.doi).then (
+      function(value) {
+        maindata = value.data;
+        totaldata = [...value.data];
+        maindata.map(citation => {
+          DoiService.endpoint_get_related_dois(citation.citing).then (
+            function(value) {
+              totaldata = [...totaldata, ...value.data]
+              check ++;
+              if(check == maindata.length) {
+                storeRelatedDois(totaldata);
+                storeRelatedDoisForGraph(totaldata);
+              }
+            },
+            function(error) {
+              failedFetchingPapers();
+            }
+            
+          )
+        })
+      },
+      function(error) {
+        failedFetchingPapers();
+      }
+    )
+    
   }, []);
 
 
@@ -41,7 +70,16 @@ const mapStateToDispatch=(dispatch)=>{
     },
     setCurrentPage: (payload) => {
       dispatch({type:'SET_CURRENT_PAGE', payload});
-    }
+    },
+    storeRelatedDois: (payload) => {
+      dispatch({type:'STORE_RELATED_DOIS', payload});
+    },
+    storeRelatedDoisForGraph: (payload) => {
+      dispatch({type:'STORE_RELATED_DOIS_FOR_GRAPH', payload});
+    },
+    failedFetchingPapers: () => {
+      dispatch({type:'FAILED_FETCHING_RELATED_PAPERS'});
+    },
   }
 }
 

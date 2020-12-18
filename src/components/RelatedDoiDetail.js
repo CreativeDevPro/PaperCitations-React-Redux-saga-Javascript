@@ -79,11 +79,11 @@ const RelatedDoiDetail = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const buildGraph = () => (event) => {
+  const buildGraph = () => async(event) => {
     // let originalPaper = {
     //   title: 
     // }
-    loadMetaDataInfo(props.selectedDoi.citing);
+    await loadMetaDataInfo(props.selectedDoi.citing);
     relatedDoiState.map ( citation => {
       if(citation.citing == props.selectedDoi.citing) {
         let originalPaper = {

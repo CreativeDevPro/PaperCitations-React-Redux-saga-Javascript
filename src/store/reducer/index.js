@@ -14,7 +14,9 @@ export default function rootReducer (state = totalState, action) {
         case 'SET_FETCHING_ARTICLES_STATUS' :
             return { ...state, onFetchingArticles: true }
         case 'STORE_RELATED_DOIS' :
-            let relatedDois = action.payload.relatedDois.map (doi => {
+            console.log('reducer!!!!!!')
+            console.log(action.payload);
+            let relatedDois = action.payload.map (doi => {
                 let newDoi = {...doi, containMetaData: false }
                 newDoi = {...newDoi, metaData: {
                     citation_count: '',
@@ -35,7 +37,7 @@ export default function rootReducer (state = totalState, action) {
             })
             return { ...state, relatedDoiState: relatedDois, onFetchingRelatedDois: false}
         case 'STORE_RELATED_DOIS_FOR_GRAPH' :
-                return { ...state, relatedDoiForGraphState: action.payload.relatedDois}
+                return { ...state, relatedDoiForGraphState: action.payload}
         case 'STORE_SUB_RELATED_DOIS' :
             let relatedDois1 = action.payload.relatedDois.map (doi => {
                 let newDoi = {...doi, containMetaData: false }
@@ -60,6 +62,7 @@ export default function rootReducer (state = totalState, action) {
             console.log(relatedDois);
             let totalRelatedDois = [...state.relatedDoiState]
             totalRelatedDois = [...totalRelatedDois, ...relatedDois1]
+            console.log(totalRelatedDois);
             return { ...state, relatedDoiState: totalRelatedDois, onFetchingRelatedDois: false}
         case 'SET_CURRENT_ORIGINAL_PAPER' :
             return {...state, currentOriginalPaper: action.payload}

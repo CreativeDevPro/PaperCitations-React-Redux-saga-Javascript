@@ -6,9 +6,9 @@ import $ from "jquery";
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const DoiService = (function () {
-    const endpoint_get_related_dois = async (doi) => {
+    const endpoint_get_related_dois =  (doi) => {
         let endpoint = "https://opencitations.net/index/coci/api/v1/citations/"
-        let data = await AxiosService.get(endpoint + doi);
+        let data =  AxiosService.get(endpoint + doi);
         console.log(endpoint + doi);
         console.log('related dois!')
         // let totaldata = data;
@@ -27,33 +27,17 @@ export const DoiService = (function () {
     };
 
     const endpoint_get_related_sub_dois = async (doi) => {
-        // let endpoint = "https://opencitations.net/index/coci/api/v1/citations/"
-        
-        
-        // let data;
-        //  AxiosService.get(endpoint + doi).then(function (response) {
-        //     // data = response.data;
-        //     // console.log('yahoo');
-        //     // console.log(response.data);
-        //     return response.data;
-        // }).catch( function ( response ) {
-        //     console.log('failed');  
-        // })
-        // return data;
-        let url = 'https://opencitations.net/index/coci/api/v1/citations/' + doi;
-        $.ajax({
-            type: "GET",
-            url: url,
-            processData: false,
-          }).then(
-              (res) => {
-                console.log(res);
-                return res;
-              },
-              (error) => {
-
-              }
-          );
+        let endpoint = "https://opencitations.net/index/coci/api/v1/citations/"
+        AxiosService.get(endpoint + doi).then(
+            function(value) {
+                console.log('received but why')
+                console.log(value.data);
+                return value;
+            },
+            function(error) {
+                console.log(error);
+            }
+        )
     }
 
     const endpoint_get_meta_data = async (doi) => {
