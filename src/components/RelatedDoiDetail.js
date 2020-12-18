@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RelatedDoiDetail = (props) => {
-  const { selectedDoi, relatedDoiState,  loadMetaDataInfo, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus} = props;
+  const { selectedDoi, relatedDoiState,  currentOriginalPaper, loadMetaDataInfo, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus} = props;
 
   const [open, setOpen] = useState(true);
   const classes = useStyles();
@@ -136,7 +136,34 @@ const RelatedDoiDetail = (props) => {
                   selectedDoi == 'original' ?
                   <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                     <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
-                      { currentDoi.metaData.title}
+                      { currentOriginalPaper.title}
+                    </Typography>
+                    <Typography
+                      color="textSecondary"
+                      variant="subheading"
+                      component="div"
+                      className={classes.lineHeight1_5em}
+                      style={{ fontSize: "14px" }}
+                    >
+                      {currentOriginalPaper.authors}
+                    </Typography>
+                    <Typography
+                      color="textSecondary"
+                      variant="subheading"
+                      component="div"
+                      className={classes.lineHeight1_5em}
+                      style={{ fontSize: "14px" }}
+                    >
+                      {currentOriginalPaper.year.substr(0, 4)}
+                    </Typography>
+                    <Typography
+                      color="textSecondary"
+                      variant="subheading"
+                      component="div"
+                      className={classes.lineHeight1_5em}
+                      style={{ fontSize: "14px" }}
+                    >
+                      {relatedDoiState.length} Citations
                     </Typography>
                   </div>
 
@@ -180,7 +207,7 @@ const RelatedDoiDetail = (props) => {
                         </Typography>
                       </div> 
                     :
-                      <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
+                      <div style={{ paddingTop: "5px", paddingLeft: "8px"}}>
                         <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
                           {currentDoi.citing}
                         </Typography>
@@ -189,7 +216,7 @@ const RelatedDoiDetail = (props) => {
                           variant="subheading"
                           component="div"
                           className={classes.lineHeight1_5em}
-                          style={{ fontSize: "14px", paddingLeft: "8px", paddingTop: "5px"}}
+                          style={{ fontSize: "14px", paddingLeft: "-8px", paddingTop: "5px"}}
                         >
                           {/* <b>DOI</b>:   {currentDoi.citing}
                           <br></br> */}
@@ -201,16 +228,16 @@ const RelatedDoiDetail = (props) => {
                   </div>
                 }
  
-                  {/* <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
+                  <Typography style={{display: "flex", justifyContent: "center", marginTop: "10px"}}>
                     {
-                      !(selectedDo === 'original') ?
+                      !(selectedDoi === 'original') ?
                       <Button onClick={buildGraph()} variant="outlined" style={{ width: "110px", height: "28px", fontSize: "9px"}}>
                           Build Graph
                       </Button> :
                       "Original Paper"
                     }
                     
-                  </Typography> */}
+                  </Typography>
 
           </Drawer>
           </div>
@@ -228,6 +255,7 @@ const mapStateToProps=(state = totalState)=>{
   return {
     relatedDoiState: state.relatedDoiState,
     selectedDoi: state.selectedDoi,
+    currentOriginalPaper: state.currentOriginalPaper,
   }
 }
 

@@ -39,42 +39,7 @@ const NetworkDiagram = (props) => {
       }
 
       function focusOriginalPaper() {
-        let selectedDoi =  {
-          cited: 'original',
-          creation: '',
-          oci: '',
-          author_sc: '',
-          citing: '',
-          journal_sc: '',
-          timespan: '',
-          containMetaData: false,
-          metaData: {
-              citation_count: '',
-              doi: '',
-              year: '',
-              source_id: '',
-              page: '',
-              reference: '',
-              author: '',
-              volume: '',
-              source_title: '',
-              issue: '',
-              oa_link: '',
-              citation: '',
-              title: '',
-              journal: '',
-          }
-        }
-        let metaData = {...selectedDoi.metaData}
-        metaData = {...metaData, 
-                      title: currentOriginalPaper.title, 
-                      doi: currentOriginalPaper.doi,
-                      year: currentOriginalPaper.year,
-                      author: currentOriginalPaper.authors,
-    
-                    }
-        selectedDoi = {...selectedDoi, metaData: metaData, containMetaData: true }
-        setSelectedDoi(selectedDoi);
+        setSelectedDoi('original');
       }
       function drawDiagram(graph) {
 
@@ -175,14 +140,11 @@ const NetworkDiagram = (props) => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
             console.log(d.doi);
-            relatedDoiForGraphState.map(doi => {
-              if(doi.citing == d.doi) {
-                setSelectedDoi(doi)
-              }
-            })
             if(currentOriginalPaper.doi == d.doi) {
-              focusOriginalPaper();
+              setSelectedDoi('original');
             }
+            else
+              setSelectedDoi(d.doi);
             
           })
           .on('mouseout', d => {

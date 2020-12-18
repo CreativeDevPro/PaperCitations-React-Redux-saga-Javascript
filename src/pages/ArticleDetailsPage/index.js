@@ -9,8 +9,6 @@ const ArticleDetailsPage = (props) => {
   const { relatedDoiForGraphState, currentOriginalPaper } = props;
   let links = []
   let nodes = []
-  console.log('graph state!!!!!!!!!!!!!!');
-  console.log(relatedDoiForGraphState);
   relatedDoiForGraphState.map(citation => {
     if(citation.cited == currentOriginalPaper.doi)
     {

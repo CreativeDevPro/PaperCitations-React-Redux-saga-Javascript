@@ -28,7 +28,7 @@ export const totalState = {
     //         journal: '',
     //     }
     // },
-    selectedDoi: '',
+    selectedDoi: 'original',
     curOffset: 0,
     isLoading: false,
     searchArticleInputValue: "",

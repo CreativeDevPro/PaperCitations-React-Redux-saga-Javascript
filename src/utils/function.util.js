@@ -87,7 +87,7 @@ export function parseArticle(result) {
       locator.unshift(""); // put dummy first element to product a prefix comma (,)
     }
     if (year && journal) {
-      year += ", ";
+      year += "";
     }
   
     var title;
