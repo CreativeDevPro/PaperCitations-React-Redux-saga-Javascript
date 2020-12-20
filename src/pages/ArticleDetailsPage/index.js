@@ -40,7 +40,7 @@ const ArticleDetailsPage = (props) => {
     "year": currentOriginalPaper.year,
     "doi": currentOriginalPaper.doi,
     "title": currentOriginalPaper.title,
-    "authors": "",
+    "authors": currentOriginalPaper.authors,
     "nodeLevel": 0
   }
 
