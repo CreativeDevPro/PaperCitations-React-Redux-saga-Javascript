@@ -96,6 +96,7 @@ const Header = (props) => {
   };
 
   const goHome = () => {
+    setSearchArticleInputValue('');
     setCurrentPage('Home');
   }
   const showHelp = () => {
