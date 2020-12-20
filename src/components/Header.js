@@ -7,11 +7,19 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-
+import IconButton from '@material-ui/core/IconButton';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    backgroundColor: 'rgba(56,142,60, 0.9)'
+  },
+  header: {
+    backgroundColor: "transparent",
+    color: "black",
+    boxShadow: "0px 0px 0px 0px"
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -22,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    color: "white"
   },
   search: {
     position: 'relative',
@@ -48,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -80,8 +95,8 @@ const Header = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} >
+      <AppBar position="static" className={classes.header}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             <img src="logo.png" alt="logo"></img>
@@ -105,6 +120,9 @@ const Header = (props) => {
             </div> :
             ""
           }
+          <IconButton aria-label="delete" className={classes.margin} size="small">
+            <HomeOutlinedIcon fontSize="inherit" />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
