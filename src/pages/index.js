@@ -6,6 +6,7 @@ import SearchResultsPage from './SearchResultsPage'
 import ArticleDetailsPage from './ArticleDetailsPage'
 import ArticlesLoadingPage from './ArticlesLoadingPage'
 import RelatedDoisLoadingPage from './RelatedDoisLoadingPage'
+import Help from './Help'
 
 const  Pages = (props) => {
   const { currentPage } = props;
@@ -17,6 +18,10 @@ const  Pages = (props) => {
         {
           (currentPage === 'Home') ?
           <Home /> : ''
+        }
+        {
+          (currentPage === 'Help') ?
+          <Help /> : ''
         }
         {
           (currentPage === 'ArticlesLoading') ?

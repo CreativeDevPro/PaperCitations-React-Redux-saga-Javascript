@@ -10,6 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     backgroundColor: "transparent",
-    color: "black",
-    boxShadow: "0px 0px 0px 0px"
+    // color: "black",
+    // boxShadow: "0px 0px 0px 0px"
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   margin: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0.3),
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -94,6 +95,13 @@ const Header = (props) => {
     }
   };
 
+  const goHome = () => {
+    setCurrentPage('Home');
+  }
+  const showHelp = () => {
+    setCurrentPage('Help');
+  }
+  
   return (
     <div className={classes.root} >
       <AppBar position="static" className={classes.header}>
@@ -120,8 +128,11 @@ const Header = (props) => {
             </div> :
             ""
           }
-          <IconButton aria-label="delete" className={classes.margin} size="small">
-            <HomeOutlinedIcon fontSize="inherit" />
+          <IconButton aria-label="delete" onClick={ goHome } style={{marginLeft: "30px"}} className={classes.margin} size="small">
+            <HomeOutlinedIcon fontSize="35px" style={{color: "white"}}/>
+          </IconButton>
+          <IconButton aria-label="delete" onClick={ showHelp } style={{marginRight: "-10px"}} className={classes.margin} size="small">
+            <HelpOutlineIcon fontSize="35px" style={{color: "white"}}/>
           </IconButton>
         </Toolbar>
       </AppBar>
