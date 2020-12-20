@@ -1,16 +1,14 @@
-import {React, useEffect} from 'react';
+import {React} from 'react';
 import { connect } from 'react-redux';
 import { DoiService } from '../../services/doi.service'
 
 const RelatedDoisLoadingPage = (props) => {
 
-  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois, getRelatedDois,setCurrentPage, storeRelatedDoisForGraph, failedFetchingPapers } = props;
+  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, storeRelatedDoisForGraph, failedFetchingPapers } = props;
   
   let maindata;
   let totaldata;
   let check = 0;
-  // useEffect(() => {
-    // getRelatedDois(currentOriginalPaper.doi);
     DoiService.endpoint_get_related_dois(currentOriginalPaper.doi).then (
       function(value) {
         maindata = value.data;
@@ -19,12 +17,13 @@ const RelatedDoisLoadingPage = (props) => {
           DoiService.endpoint_get_related_dois(citation.citing).then (
             function(value) {
               value.data.map(citation => {
-                totaldata = totaldata.filter(datacitation => datacitation.citing != citation.citing)
+                totaldata = totaldata.filter(datacitation => datacitation.citing !== citation.citing)
+                return 1;
               })
               
               totaldata = [...totaldata, ...value.data]
               check ++;
-              if(check == maindata.length) {
+              if(check === maindata.length) {
                 storeRelatedDois(totaldata);
                 storeRelatedDoisForGraph(totaldata);
               }
@@ -34,8 +33,9 @@ const RelatedDoisLoadingPage = (props) => {
             }
             
           )
+          return 1;
         })
-        if(maindata.length == 0) {
+        if(maindata.length === 0) {
           
           storeRelatedDois(totaldata);
           storeRelatedDoisForGraph(totaldata);
@@ -46,7 +46,6 @@ const RelatedDoisLoadingPage = (props) => {
       }
     )
     
-  // }, []);
 
 
   if(onFetchingRelatedDois === false) {

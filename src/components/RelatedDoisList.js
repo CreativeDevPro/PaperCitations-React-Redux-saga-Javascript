@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState} from 'react';
 import { connect } from 'react-redux';
 import {totalState }from '../store/states';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,8 +15,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from '@material-ui/core/Link';
-import { FilterNone } from '@material-ui/icons';
-import $ from "jquery";
 import * as d3 from "d3";
 
 const drawerWidth = "calc(20%)";
@@ -130,17 +128,18 @@ const RelatedDoisList = (props) => {
   }
 
   relatedDoiState.map((doi, index) => {
-    if(index == loadingMetaDoiId && doi.containMetaData == true) {
+    if(index === loadingMetaDoiId && doi.containMetaData === true) {
       setLoadingMetaDoiId(-1);
       let node = d3.select("g.nodes")
         .selectAll("g")
-        .filter(d => d.doi == doi.citing);
+        .filter(d => d.doi === doi.citing);
 
       node.select("text")
         .text(d => (doi.metaData.author.length > 0 ? doi.metaData.author.split(',')[0] + ", " : "") + d.year);
       node.select("title")
         .text(doi.metaData.title);
     }
+    return 1;
   })
   return (
     <div>
@@ -308,12 +307,12 @@ function articleslistMouseEvent(overedArticle, graph){
   if (document.getElementsByTagName('line').length > 0) {
       for (let item of document.getElementsByTagName('line')) {
           item.style.opacity = 0.2;
-          if (item.__data__.source.doi == overedArticle.citing) {
-              if (isConnectDois.indexOf(item.__data__.source.doi) == -1) isConnectDois.push(item.__data__.source.doi)
+          if (item.__data__.source.doi === overedArticle.citing) {
+              if (isConnectDois.indexOf(item.__data__.source.doi) === -1) isConnectDois.push(item.__data__.source.doi)
               isConnectDois.push(item.__data__.target.doi)
               item.style.opacity = 1;
-          } else if (item.__data__.target.doi == overedArticle.citing) {
-              if (isConnectDois.indexOf(item.__data__.target.doi) == -1) isConnectDois.push(item.__data__.target.doi)
+          } else if (item.__data__.target.doi === overedArticle.citing) {
+              if (isConnectDois.indexOf(item.__data__.target.doi) === -1) isConnectDois.push(item.__data__.target.doi)
               isConnectDois.push(item.__data__.source.doi)
               item.style.opacity = 1;
           }
@@ -334,7 +333,7 @@ function isConnected(isConnectDois){
 
             continue;
           }
-          if (doi == item.__data__.doi) {
+          if (doi === item.__data__.doi) {
               item.style.opacity = 1
           }
       }

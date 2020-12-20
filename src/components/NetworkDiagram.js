@@ -1,6 +1,5 @@
 import { React, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { totalState } from '../store/states';
 import $ from "jquery";
 import * as d3 from "d3";
 
@@ -8,7 +7,7 @@ import * as d3 from "d3";
 const NetworkDiagram = (props) => {
 
     // const {setSelectedDoi} = props;
-    const {relatedDoiForGraphState, currentOriginalPaper, setSelectedDoi} = props;
+    const { currentOriginalPaper, setSelectedDoi} = props;
     useEffect(() => {
         $(window).on("resize", function () {
           initDiagram()
@@ -38,9 +37,6 @@ const NetworkDiagram = (props) => {
           .attr("d", 'M 0 0 6 3 0 6 1.5 3');
       }
 
-      function focusOriginalPaper() {
-        setSelectedDoi('original');
-      }
       function drawDiagram(graph) {
 
         
@@ -54,7 +50,6 @@ const NetworkDiagram = (props) => {
             svg.attr("transform", d3.event.transform)
           })).append("g");
     
-        var color = d3.scaleOrdinal(d3.schemeCategory20);
         let degreeMax = 0;
         graph.nodes.forEach(d => {
           d.degreeCentrality = graph.links
@@ -77,13 +72,13 @@ const NetworkDiagram = (props) => {
     
           .on("mouseover", d => {
             circles.style("opacity", o => {
-              return (o.doi == d.source.doi || o.doi == d.target.doi) ? 1 : 0.1
+              return (o.doi === d.source.doi || o.doi === d.target.doi) ? 1 : 0.1
             });
             link.style("stroke-opacity", o => {
-              return (o.source == d.source && o.target == d.target) ? 1 : 0.1
+              return (o.source === d.source && o.target === d.target) ? 1 : 0.1
             });
             lables.style("opacity", o => {
-              return (o.source == d.source && o.target == d.target) ? 1 : 0.1
+              return (o.source === d.source && o.target === d.target) ? 1 : 0.1
             });
           })
           .on('mouseout', d => {
@@ -106,26 +101,26 @@ const NetworkDiagram = (props) => {
           .selectAll("g");
     
         var circles = node.append("circle")
-          .attr("r", d => d.nodeLevel==0? 9.5 : 3.5)
+          .attr("r", d => d.nodeLevel===0? 9.5 : 3.5)
           .attr("stroke-width", 4.5)
           .attr("stroke", function (d) {
-            return d.nodeLevel==0?"rgba(56,142,60, 0.9)":d.nodeLevel==1?"rgba(56,142,60, 0.6)":"rgba(56,142,60, 0.3)"; 
+            return d.nodeLevel === 0?"rgba(56,142,60, 0.9)":d.nodeLevel===1?"rgba(56,142,60, 0.6)":"rgba(56,142,60, 0.3)"; 
           })
           .attr("fill", function (d) {
-            return d.nodeLevel==0?"rgba(56,142,60, 1)":d.nodeLevel==1?"rgba(56,142,60, 0.7)":"rgba(56,142,60, 0.4)";
+            return d.nodeLevel===0?"rgba(56,142,60, 1)":d.nodeLevel===1?"rgba(56,142,60, 0.7)":"rgba(56,142,60, 0.4)";
           })
           .on("mouseover", function (d) {
             let highlightDOIs = [d.doi];
             for (let p of graph.links) {
-              if (p.source.doi == d.doi) {
+              if (p.source.doi === d.doi) {
                 highlightDOIs.push(p.target.doi);
               }
-              if (p.target.doi == d.doi) {
+              if (p.target.doi === d.doi) {
                 highlightDOIs.push(p.source.doi);
               }
             }
             link.style("stroke-opacity", o => {
-              return (o.source.doi == d.doi || o.target.doi == d.doi) ? 1 : 0.1
+              return (o.source.doi === d.doi || o.target.doi === d.doi) ? 1 : 0.1
             });
             circles.style("opacity", o => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
@@ -134,7 +129,7 @@ const NetworkDiagram = (props) => {
               return highlightDOIs.indexOf(o.doi) > -1 ? 1 : 0.1
             });
   
-            if(currentOriginalPaper.doi == d.doi) {
+            if(currentOriginalPaper.doi === d.doi) {
               setSelectedDoi('original');
             }
             else

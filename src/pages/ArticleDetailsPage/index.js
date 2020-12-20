@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import RelatedDoisList from './../../components/RelatedDoisList'
 import RelatedDoiDetail from './../../components/RelatedDoiDetail'
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ const ArticleDetailsPage = (props) => {
 
     if (nodes.filter(node => node.doi === citation.citing).length === 0) {
       let nodeLevel = 0;
-      if (citation.cited == currentOriginalPaper.doi) {
+      if (citation.cited === currentOriginalPaper.doi) {
         nodeLevel = 1;
       } else {
         nodeLevel = 2;
@@ -33,6 +33,7 @@ const ArticleDetailsPage = (props) => {
         "nodeLevel": nodeLevel
       }]
     }
+    return 1;
   })
   let originalPaper = {
     "id": currentOriginalPaper.doi,

@@ -42,7 +42,7 @@ const ColorButton = withStyles((theme) => ({
 
 const Article = (props) => {
   const classes = useStyles();
-  const {  setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus } = props;
+  const {  setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus, setSelectedDoi } = props;
   let journalDetail = "";
   if(props.article.journal != null)
   {
@@ -55,6 +55,7 @@ const Article = (props) => {
   const buildGraph = () => {
     setCurrentOriginalPaper( props.article );
     setCurrentPage('RelatedDoisLoadingPage');
+    setSelectedDoi('original');
     setFetchingRelatedDoisStatus();
     
   }
@@ -108,6 +109,9 @@ const mapStateToDispatch=(dispatch)=>{
     },
     setFetchingRelatedDoisStatus: (payload) => {
       dispatch({type:'SET_FETCHING_RELATED_DOIS_STATUS', payload});
+    },
+    setSelectedDoi: (payload) => {
+      dispatch({type:'SET_SELECTED_DOI', payload});
     }
   }
 }

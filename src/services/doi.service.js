@@ -1,7 +1,5 @@
 import { AxiosService } from './axios.service'
 import axios from 'axios';
-import * as d3 from "d3";
-import $ from "jquery";
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 

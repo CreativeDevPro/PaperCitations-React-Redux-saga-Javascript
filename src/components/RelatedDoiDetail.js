@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from "@material-ui/core/Button";
-import { parseArticle } from '../utils';
 import Link from '@material-ui/core/Link';
 
 const drawerWidth = "calc(20%)";
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RelatedDoiDetail = (props) => {
-  const { selectedDoi, relatedDoiState,  currentOriginalPaper, articlesState, fetchingMetaDataCheck, loadMetaDataInfo, loadMetaDataInfoForGraph, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus, setSelectedDoi} = props;
+  const { selectedDoi, relatedDoiState,  currentOriginalPaper, fetchingMetaDataCheck, loadMetaDataInfoForGraph, setCurrentPage, setCurrentOriginalPaper, setFetchingRelatedDoisStatus, setSelectedDoi} = props;
 
   const [open, setOpen] = useState(true);
   const classes = useStyles();
@@ -88,7 +87,7 @@ const RelatedDoiDetail = (props) => {
   }
 
   relatedDoiState.map ( citation => {
-    if(citation.citing == selectedDoi && fetchingMetaDataCheck == true) {
+    if(citation.citing === selectedDoi && fetchingMetaDataCheck === true) {
       let originalPaper = {
         title: citation.metaData.title,
         citations: citation.metaData.citation,
@@ -104,13 +103,15 @@ const RelatedDoiDetail = (props) => {
       setCurrentPage('RelatedDoisLoadingPage');
       setFetchingRelatedDoisStatus();
     }
+    return 1;
   })
 
   let currentDoi;
   relatedDoiState.map(doi => {
-    if(doi.citing == selectedDoi) {
+    if(doi.citing === selectedDoi) {
       currentDoi = doi;
     }
+    return 1;
   })
 
   return (
@@ -136,7 +137,7 @@ const RelatedDoiDetail = (props) => {
                 </div>
                 <Divider />
                 {
-                  selectedDoi == 'original' ?
+                  selectedDoi === 'original' ?
                   <div style={{paddingLeft: "8px", paddingTop: "5px"}}>
                     <Typography style={{fontSize: "17px"}} gutterBottom variant="h5" component="h2" className={classes.lineHeight1_2em}>
                     <Link href={`http://dx.doi.org/${currentOriginalPaper.doi}`} variant="h6" color="inherit" target="_blank" rel="opener">{ currentOriginalPaper.title}</Link>
@@ -266,9 +267,6 @@ const mapStateToProps=(state = totalState)=>{
 
 const mapStateToDispatch=(dispatch)=>{
   return {
-    loadMetaDataInfo: (payload) => {
-      dispatch({type:'LOAD_METADATA_OF_DOI', payload});
-    },
     loadMetaDataInfoForGraph: (payload) => {
       dispatch({type:'LOAD_METADATA_OF_DOI_FOR_GRAPH', payload});
     },
