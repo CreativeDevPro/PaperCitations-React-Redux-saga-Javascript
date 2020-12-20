@@ -10,15 +10,21 @@ const NetworkDiagram = (props) => {
     const { currentOriginalPaper, setSelectedDoi} = props;
     useEffect(() => {
         $(window).on("resize", function () {
-          initDiagram()
-          drawDiagram(props)
+          let svg = d3.select("svg#networkgraph");
+          let width = $(svg.node()).parent().width();
+          let height = window.innerHeight - 90;
+          svg.attr("width", width);
+          svg.attr("height", height);          
         }).trigger("resize");
+
+        initDiagram();
+        drawDiagram(props);
       })
     
     
     function initDiagram(){
         $("svg#networkgraph").empty();
-        let svg = d3.select("svg");
+        let svg = d3.select("svg#networkgraph");
         let width = $(svg.node()).parent().width();
         let height = $(svg.node()).parent().height();
         svg.attr("width", width);
