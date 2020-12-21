@@ -8,7 +8,6 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
@@ -130,10 +129,10 @@ const Header = (props) => {
             ""
           }
           <IconButton aria-label="delete" onClick={ goHome } style={{marginLeft: "30px"}} className={classes.margin} size="small">
-            <HomeOutlinedIcon fontSize="35px" style={{color: "white"}}/>
+            <HomeOutlinedIcon style={{color: "white", fontSize: "30px"}}/>
           </IconButton>
           <IconButton aria-label="delete" onClick={ showHelp } style={{marginRight: "-10px"}} className={classes.margin} size="small">
-            <HelpOutlineIcon fontSize="35px" style={{color: "white"}}/>
+            <HelpOutlineIcon style={{color: "white", fontSize: "30px"}}/>
           </IconButton>
         </Toolbar>
       </AppBar>

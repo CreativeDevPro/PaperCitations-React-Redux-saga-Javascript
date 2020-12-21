@@ -16,6 +16,7 @@ const ArticlesLoadingPage = (props) => {
 
   if(onFetchingArticles === false) {
     setCurrentPage('SearchResultsPage');
+    return '';
   }
 
   return(

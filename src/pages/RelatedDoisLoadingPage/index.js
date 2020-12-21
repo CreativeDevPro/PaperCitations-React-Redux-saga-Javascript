@@ -1,4 +1,4 @@
-import {React} from 'react';
+import { React, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { DoiService } from '../../services/doi.service'
 
@@ -6,47 +6,78 @@ const RelatedDoisLoadingPage = (props) => {
 
   const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, storeRelatedDoisForGraph, failedFetchingPapers } = props;
   
-  let maindata;
-  let totaldata;
-  let check = 0;
-    DoiService.endpoint_get_related_dois(currentOriginalPaper.doi).then (
+  let uniqueDOIs = {};
+  let uniqueDOICount = 0;
+
+  let DOIsToLoad = [];
+  let todoCount = 0;
+  let doneCount = 0;
+
+  let maxLayers = 2;
+  let maxNodes = 1000;
+  let currentLayers = -1;
+  let totalCitations = [];
+
+  /**
+   * Load citations for specified DOI, via opencitations.net API
+   * @param {String} doi
+   * @return void
+   */
+  function loadCitations(doi) {
+    DoiService.endpoint_get_related_dois(doi).then(
       function(value) {
-        maindata = value.data;
-        totaldata = [...value.data];
-        maindata.map(citation => {
-          DoiService.endpoint_get_related_dois(citation.citing).then (
-            function(value) {
-              value.data.map(citation => {
-                totaldata = totaldata.filter(datacitation => datacitation.citing !== citation.citing)
-                return 1;
-              })
-              
-              totaldata = [...totaldata, ...value.data]
-              check ++;
-              if(check === maindata.length) {
-                storeRelatedDois(totaldata);
-                storeRelatedDoisForGraph(totaldata);
-              }
-            },
-            function(error) {
-              failedFetchingPapers();
-            }
-            
-          )
+        totalCitations = [...totalCitations, ...value.data];
+        value.data.map(citation => {
+          if (!(citation.citing in uniqueDOIs)) {
+            DOIsToLoad.push(citation.citing);
+            uniqueDOIs[citation.citing] = 1;
+            uniqueDOICount ++;
+          }
           return 1;
         })
-        if(maindata.length === 0) {
-          
-          storeRelatedDois(totaldata);
-          storeRelatedDoisForGraph(totaldata);
-        }
+
+        // check whether done or not
+        doneCount ++;
+        startToLoadForNewLayer();
       },
       function(error) {
         failedFetchingPapers();
       }
     )
-    
+  }
 
+  function startToLoadForNewLayer() {
+    if (todoCount > doneCount) {
+      return;
+    }
+
+    currentLayers ++;
+
+    // the number of layers reached to limit
+    if (currentLayers === maxLayers
+       || DOIsToLoad.length === 0
+       || uniqueDOICount >= maxNodes
+    ) {
+      storeRelatedDois(totalCitations);
+      storeRelatedDoisForGraph(totalCitations);
+      return;
+    }
+
+    // start to load citations for leaf-papers(DOIs)
+    let loadQueue = [...DOIsToLoad];
+    todoCount = DOIsToLoad.length;
+    doneCount = 0;
+    DOIsToLoad = [];
+    for (let childDOI of loadQueue) {
+      loadCitations(childDOI);
+    }
+  }
+
+  // start to load citations
+  useEffect(() => {
+    DOIsToLoad = [currentOriginalPaper.doi];
+    startToLoadForNewLayer();
+  }, []);
 
   if(onFetchingRelatedDois === false) {
     setCurrentPage('ArticleDetailsPage');

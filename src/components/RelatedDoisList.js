@@ -303,7 +303,7 @@ RelatedDoisList.propTypes = {};
 RelatedDoisList.defaultProps = {};
 
 function articleslistMouseEvent(overedArticle, graph){
-  var isConnectDois = new Array();
+  var isConnectDois = [];
   if (document.getElementsByTagName('line').length > 0) {
       for (let item of document.getElementsByTagName('line')) {
           item.style.opacity = 0.2;
