@@ -58,8 +58,17 @@ const RelatedDoisLoadingPage = (props) => {
        || DOIsToLoad.length === 0
        || uniqueDOICount >= maxNodes
     ) {
-      storeRelatedDois(totalCitations);
-      storeRelatedDoisForGraph(totalCitations);
+      //remove duplicated citations
+      let filteredCitations = [];
+      totalCitations.map(citation => {
+        if(!(citation in filteredCitations)) {
+          filteredCitations = [...filteredCitations, citation]
+        }
+      })
+
+      //save loaded citations to redux
+      storeRelatedDois(filteredCitations);
+      storeRelatedDoisForGraph(filteredCitations);
       return;
     }
 
