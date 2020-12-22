@@ -4,41 +4,12 @@ import { DoiService } from '../../services/doi.service'
 
 export default function* root() {
     yield all([
-        takeLatest('GET_RELATED_DOIS', getRelatedDois),
-        takeLatest('GET_SUB_RELATED_DOIS', getSubRelatedDois),
         takeLatest('LOAD_METADATA_OF_DOI', loadDoiMetadata),
         takeLatest('LOAD_METADATA_OF_DOI_FOR_GRAPH', loadDoiMetadataForGraph),
-        takeLatest('STORE_DOIS_DATA', storeDoisData),
     ]);
 }
 
-export function* getRelatedDois(action) {
-    
-}
 
-export function *storeDoisData(action) {
-
-}
-
-export function* getSubRelatedDois(action) {
-    try {
-        const { data } = yield call(
-            DoiService.endpoint_get_related_dois,
-            action.payload,
-        );
-
-        yield put(
-            articlesAction.storeSubRelatedDois({
-                relatedDois: data,
-            })
-        )
-    } catch (error) {
-        alert('failed fetching papers');
-        yield put(
-            articlesAction.failedFetchingRelatedPapers()
-        )
-    }
-}
 
 export function* loadDoiMetadataForGraph(action) {
     try {
