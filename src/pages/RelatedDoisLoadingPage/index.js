@@ -4,7 +4,7 @@ import { DoiService } from '../../services/doi.service'
 
 const RelatedDoisLoadingPage = (props) => {
 
-  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, storeRelatedDoisForGraph, failedFetchingPapers } = props;
+  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, failedFetchingPapers } = props;
   
   let uniqueDOIs = {};
   let uniqueDOICount = 0;
@@ -61,14 +61,19 @@ const RelatedDoisLoadingPage = (props) => {
       //remove duplicated citations
       let filteredCitations = [];
       totalCitations.map(citation => {
-        if(!(citation in filteredCitations)) {
+        let duplicatedCheck = 0;
+        filteredCitations.map(filteredcitation => {
+          if(filteredcitation.citing == citation.citing) {
+            duplicatedCheck = 1;
+          }
+        })
+        if(duplicatedCheck == 0) {
           filteredCitations = [...filteredCitations, citation]
         }
       })
 
       //save loaded citations to redux
       storeRelatedDois(filteredCitations);
-      storeRelatedDoisForGraph(filteredCitations);
       return;
     }
 
@@ -121,9 +126,6 @@ const mapStateToDispatch=(dispatch)=>{
     },
     storeRelatedDois: (payload) => {
       dispatch({type:'STORE_RELATED_DOIS', payload});
-    },
-    storeRelatedDoisForGraph: (payload) => {
-      dispatch({type:'STORE_RELATED_DOIS_FOR_GRAPH', payload});
     },
     failedFetchingPapers: () => {
       dispatch({type:'FAILED_FETCHING_RELATED_PAPERS'});
