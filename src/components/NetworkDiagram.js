@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import $ from "jquery";
 import * as d3 from "d3";
 
-
 const NetworkDiagram = (props) => {
 
     // const {setSelectedDoi} = props;
@@ -41,6 +40,22 @@ const NetworkDiagram = (props) => {
           .attr("orient", 'auto')
           .append('path')
           .attr("d", 'M 0 0 6 3 0 6 1.5 3');
+
+        // Define the div for the tooltip
+        if (d3.select("div.cl-tooltip").empty()) {
+          d3.select("body").append("div")
+            .attr("class", "cl-tooltip")
+            .style("position", "absolute")
+            .style("text-align", "left")
+            .style("max-width", "360px")
+            //.style("height", "28px")
+            .style("padding", "5px")
+            .style("font", "12px sans-serif")
+            .style("background", "#ddd")
+            .style("border", "0px")
+            .style("border-radius", "5px")
+            .style("pointer-events", "none");
+        }
       }
 
       function drawDiagram(graph) {
@@ -137,16 +152,32 @@ const NetworkDiagram = (props) => {
   
             if(currentOriginalPaper.doi === d.doi) {
               setSelectedDoi('original');
-            }
-            else
+            } else {
               setSelectedDoi(d.doi);
+            }
+
+            // display tooltip
+            let tooltip = d3.select("div.cl-tooltip");
+            tooltip.transition()
+              .duration(200)
+              .style("opacity", .9);
+            tooltip.html(
+                (d.title ? `<strong>${d.title}</strong><br/>` : '')
+                + `DOI:&nbsp; ${d.doi}<br/>Year: ${d.year}`
+              )
+              .style("left", (d3.event.pageX + 25) + "px")
+              .style("top", (d3.event.pageY - 28) + "px");
             
           })
           .on('mouseout', d => {
             circles.style("opacity", 1);
             link.style("stroke-opacity", 1);
-
             lables.style("opacity", 1);
+
+            d3.select("div.cl-tooltip")
+              .transition()
+              .duration(500)
+              .style("opacity", 0);
           })
           .call(d3.drag()
             .on("start", dragstarted)

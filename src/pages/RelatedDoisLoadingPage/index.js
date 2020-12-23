@@ -63,13 +63,15 @@ const RelatedDoisLoadingPage = (props) => {
       totalCitations.map(citation => {
         let duplicatedCheck = 0;
         filteredCitations.map(filteredcitation => {
-          if(filteredcitation.citing == citation.citing) {
+          if(filteredcitation.citing === citation.citing) {
             duplicatedCheck = 1;
           }
+          return 1;
         })
-        if(duplicatedCheck == 0) {
+        if(duplicatedCheck === 0) {
           filteredCitations = [...filteredCitations, citation]
         }
+        return 1;
       })
 
       //save loaded citations to redux
