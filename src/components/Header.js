@@ -10,6 +10,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import RelatedDoiFetchSetting from './RelatedDoiFetchSetting'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const { searchArticleInputValue, setSearchArticleInputValue, setCurrentPage } = props;
   const [inputValue, setInputValue] = useState('')
+  const [isSettingOpened, setIsSettingOpened] = useState(false);
 
   const classes = useStyles();
   const handleKeyUp = (e) => {
@@ -100,6 +103,10 @@ const Header = (props) => {
   }
   const showHelp = () => {
     setCurrentPage('Help');
+  }
+
+  const showSetting =() => {
+    setIsSettingOpened(!isSettingOpened);
   }
   
   return (
@@ -130,6 +137,17 @@ const Header = (props) => {
           }
           <IconButton aria-label="delete" onClick={ goHome } style={{marginLeft: "30px"}} className={classes.margin} size="small">
             <HomeOutlinedIcon style={{color: "white", fontSize: "30px"}}/>
+          </IconButton>
+          <IconButton aria-label="delete"  style={{marginLeft: "30px"}} className={classes.margin} size="small" style={{position: "relative"}}>
+            <SettingsIcon onClick={ showSetting } style={{color: "white", fontSize: "30px"}}/>
+            {
+              isSettingOpened ? 
+                <div style={{position: "absolute", top: "43px", width: "200px", right: "-34px", zIndex: "1000"}}>
+                  <RelatedDoiFetchSetting></RelatedDoiFetchSetting>
+                </div>
+              : ""
+            }
+            
           </IconButton>
           <IconButton aria-label="delete" onClick={ showHelp } style={{marginRight: "-10px"}} className={classes.margin} size="small">
             <HelpOutlineIcon style={{color: "white", fontSize: "30px"}}/>

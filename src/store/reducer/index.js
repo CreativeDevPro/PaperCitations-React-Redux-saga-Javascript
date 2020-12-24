@@ -71,6 +71,10 @@ export default function rootReducer (state = totalState, action) {
             return {...state, currentPage: "Home", searchArticleInputValue: ''}
         case 'FAILED_FETCHING_RELATED_PAPERS':
             return {...state, currentPage: "SearchResultsPage"}
+        case 'SET_MAX_LAYERS':
+            return {...state, maxLayers: action.payload}
+        case 'SET_MAX_NODES':
+            return {...state, maxNodes: action.payload }
         default: 
             return state;
     }   

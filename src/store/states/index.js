@@ -38,6 +38,8 @@ export const totalState = {
     currentPage: "Home",
     currentOriginalPaper: {},
     fetchingMetaDataCheck: false,
+    maxLayers: 2,
+    maxNodes: 1000,
 }
 
 // export default rootState;

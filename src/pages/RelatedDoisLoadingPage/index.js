@@ -4,7 +4,7 @@ import { DoiService } from '../../services/doi.service'
 
 const RelatedDoisLoadingPage = (props) => {
 
-  const { currentOriginalPaper, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, failedFetchingPapers } = props;
+  const { currentOriginalPaper, maxLayers, maxNodes, onFetchingRelatedDois, storeRelatedDois,setCurrentPage, failedFetchingPapers } = props;
   
   let uniqueDOIs = {};
   let uniqueDOICount = 0;
@@ -13,8 +13,8 @@ const RelatedDoisLoadingPage = (props) => {
   let todoCount = 0;
   let doneCount = 0;
 
-  let maxLayers = 2;
-  let maxNodes = 1000;
+  // let maxLayers = 2;
+  // let maxNodes = 1000;
   let currentLayers = -1;
   let totalCitations = [];
 
@@ -114,7 +114,9 @@ const mapStateToProps=(state)=>{
   
   return {
     currentOriginalPaper: state.currentOriginalPaper,
-    onFetchingRelatedDois: state.onFetchingRelatedDois
+    onFetchingRelatedDois: state.onFetchingRelatedDois,
+    maxLayers: state.maxLayers,
+    maxNodes: state.maxNodes,
   }
 }
 
@@ -135,9 +137,7 @@ const mapStateToDispatch=(dispatch)=>{
   }
 }
 
-RelatedDoisLoadingPage.propTypes = {
-  
-};
+RelatedDoisLoadingPage.propTypes = {};
 
 RelatedDoisLoadingPage.defaultProps = {};
 
