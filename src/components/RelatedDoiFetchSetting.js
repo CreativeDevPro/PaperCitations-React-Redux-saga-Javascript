@@ -41,23 +41,25 @@ const RelatedDoiFetchSetting = (props) => {
   
   const classes = useStyles();
   const handleMaxLayersChanged = (e) => {
-      setMaxLayers(e.target.value);
+      let value = e.target.value;
+      setMaxLayers(value);
   }
   const handleMaxNodesChanged = (e) => {
-      setMaxNodes(e.target.value);
+        let value = e.target.value;
+        setMaxNodes(value);
   }
   return (
     <div className={classes.container}>
         <div >
             <label style={{display: "flex", fontSize: "13px", marginTop: "15px", marginLeft: "5px"}}>
                 Max layers:
-                <input type="number" name="maxLayers" value={maxLayers} onChange={(e) => {handleMaxLayersChanged(e)}} style={{width: "100px", height: "23px", marginLeft: "10px", marginTop: "-6px"}}/>
+                <input type="number" min="1" max="10" name="maxLayers" value={maxLayers} onChange={(e) => {handleMaxLayersChanged(e)}} style={{width: "100px", height: "23px", marginLeft: "10px", marginTop: "-6px"}}/>
             </label>
         </div>
         <div >
             <label style={{display: "flex", fontSize: "13px", marginTop: "15px", marginLeft: "5px"}}>
                 Max nodes:
-                <input type="number" name="maxNodes" value={maxNodes} onChange={(e) => {handleMaxNodesChanged(e)}} style={{width: "100px", height: "23px", marginLeft: "10px", marginTop: "-6px"}}/>
+                <input type="number" min="10" max="2000" name="maxNodes" value={maxNodes} onChange={(e) => {handleMaxNodesChanged(e)}} style={{width: "100px", height: "23px", marginLeft: "10px", marginTop: "-6px"}}/>
             </label>
         </div>
     </div>
