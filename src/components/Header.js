@@ -142,7 +142,7 @@ const Header = (props) => {
             <SettingsIcon onClick={ showSetting } style={{color: "white", fontSize: "30px"}}/>
             {
               isSettingOpened ? 
-                <div style={{position: "absolute", top: "43px", width: "200px", right: "-34px", zIndex: "1000"}}>
+                <div style={{position: "absolute", top: "43px", width: "200px", right: "-34px", zIndex: "10000"}}>
                   <RelatedDoiFetchSetting></RelatedDoiFetchSetting>
                 </div>
               : ""
